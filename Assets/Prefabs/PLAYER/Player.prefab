@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 6409741869820369538}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: PLAYER
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab2cbc52526ea384ba280d13cd1a57b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 1
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0
   target: {fileID: -1149932982257943773}
@@ -206,3 +206,4 @@ MonoBehaviour:
   rgb: {fileID: -1149932982257943773}
   DirectionX: 0
   PlayerSpeed: 6
+  canMove: 1
