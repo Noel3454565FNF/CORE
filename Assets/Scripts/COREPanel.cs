@@ -7,6 +7,7 @@ public class COREPanel : MonoBehaviour
 
     public GameObject PanelRoot;
     public PLAYERManager PM;
+    public COREManager CoreM;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +21,16 @@ public class COREPanel : MonoBehaviour
     }
 
 
+/*    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "PLAYER")
+        {
+            activePanel();
+        }
+    }
+*/
+
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "PLAYER")
@@ -38,6 +49,9 @@ public class COREPanel : MonoBehaviour
     public void disablePanel()
     {
         PanelRoot.active = false;
+        print("lol");
         PM.canMove = true;
+        CoreM.StartCoroutine(CoreM.CORE());
     }
+
 }

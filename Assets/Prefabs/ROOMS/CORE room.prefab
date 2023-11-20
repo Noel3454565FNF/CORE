@@ -833,7 +833,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2440631580509515029}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
   m_Name: 
@@ -843,7 +843,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 00000000
@@ -883,7 +883,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2440631580509515029}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
@@ -1019,6 +1019,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67a8fa7837c562a48a43050564f1b2fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GM: {fileID: 0}
+  GMN: {fileID: 0}
   COREColor: {fileID: 4315484792364889028}
   COREStatut: off
   COREtemp: 0
@@ -1028,6 +1030,7 @@ MonoBehaviour:
   offStat: {r: 0.5764706, g: 0.5764706, b: 0.5764706, a: 1}
   CORELight: {fileID: 701932697020978990}
   TV: {fileID: 8097407449638028367}
+  COREFailedStart: 0
 --- !u!114 &4621456624484043021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1144,7 +1147,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &620484234737773315
 Transform:
   m_ObjectHideFlags: 0
@@ -1334,6 +1337,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PanelRoot: {fileID: 4689553174577494754}
+  PM: {fileID: 6409741869820369538, guid: a31b2840897786f498d47c4cc371ae3a, type: 3}
+  CoreM: {fileID: 0}
 --- !u!1 &5215542146299015052
 GameObject:
   m_ObjectHideFlags: 0
@@ -1682,10 +1687,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: condtrolMove
-        m_Mode: 6
+      - m_Target: {fileID: 7126769241825264483}
+        m_TargetAssemblyTypeName: COREPanel, Assembly-CSharp
+        m_MethodName: disablePanel
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1960,7 +1965,7 @@ GameObject:
   - component: {fileID: 3770909661694704334}
   - component: {fileID: 6304013450018862417}
   m_Layer: 0
-  m_Name: light1 (1)
+  m_Name: light2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

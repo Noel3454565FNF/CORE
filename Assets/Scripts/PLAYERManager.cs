@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PLAYERManager : MonoBehaviour
 {
@@ -8,13 +9,17 @@ public class PLAYERManager : MonoBehaviour
     public Rigidbody2D rgb;
     public float DirectionX;
     public float PlayerSpeed;
-    public bool canMove;
+    public bool canMove = true;
+    public bool COREPanelState;
+    public GameObject PanelCoreRoot;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        PanelCoreRoot = GameObject.Find("COREpanelThing");
+        PanelCoreRoot.SetActive(false);
+        canMove = true;
     }
 
     // Update is called once per frame
@@ -27,6 +32,13 @@ public class PLAYERManager : MonoBehaviour
         }
 
 
+        if (Input.GetKeyDown(KeyCode.X) && COREPanelState == true)
+        {
+                canMove = true;
+                COREPanelState = false;
+                PanelCoreRoot.SetActive(false);
+        }
+
     }
 
 
@@ -35,8 +47,11 @@ public class PLAYERManager : MonoBehaviour
         
         if (collision.name == "COREPanel")
         {
+            COREPanelState = true;
+            
             canMove = false;
             rgb.velocity = Vector2.zero;
+
             
         }
 

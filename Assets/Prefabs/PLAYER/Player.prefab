@@ -206,4 +206,6 @@ MonoBehaviour:
   rgb: {fileID: -1149932982257943773}
   DirectionX: 0
   PlayerSpeed: 6
-  canMove: 1
+  canMove: 0
+  COREPanelState: 0
+  PanelRoot: {fileID: 0}
