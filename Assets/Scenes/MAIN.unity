@@ -123,6 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &106033966 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2517053701457101968, guid: b9bc5055f1cf5844cb96cb4caffbcdba, type: 3}
+  m_PrefabInstance: {fileID: 1113179201}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -342,15 +353,15 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1004106046 stripped
+--- !u!114 &1101866612 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1383921840326695216, guid: b9bc5055f1cf5844cb96cb4caffbcdba, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5493596671106125573, guid: b9bc5055f1cf5844cb96cb4caffbcdba, type: 3}
   m_PrefabInstance: {fileID: 1113179201}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67a8fa7837c562a48a43050564f1b2fd, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1113179201
@@ -361,14 +372,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 701932697020978990, guid: b9bc5055f1cf5844cb96cb4caffbcdba, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 701932697020978990, guid: b9bc5055f1cf5844cb96cb4caffbcdba, type: 3}
-      propertyPath: m_Intensity
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1383921840326695216, guid: b9bc5055f1cf5844cb96cb4caffbcdba, type: 3}
       propertyPath: GM
       value: 
@@ -421,22 +424,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4576254067468623158, guid: b9bc5055f1cf5844cb96cb4caffbcdba, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4621456624484043021, guid: b9bc5055f1cf5844cb96cb4caffbcdba, type: 3}
       propertyPath: sceneId
       value: 2830209965
       objectReference: {fileID: 0}
     - target: {fileID: 7126769241825264483, guid: b9bc5055f1cf5844cb96cb4caffbcdba, type: 3}
-      propertyPath: CoreM
+      propertyPath: StartupButton
       value: 
-      objectReference: {fileID: 1004106046}
-    - target: {fileID: 8869571996039349943, guid: b9bc5055f1cf5844cb96cb4caffbcdba, type: 3}
-      propertyPath: m_Name
-      value: light2
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1101866612}
+    - target: {fileID: 7126769241825264483, guid: b9bc5055f1cf5844cb96cb4caffbcdba, type: 3}
+      propertyPath: StartupButtonText
+      value: 
+      objectReference: {fileID: 106033966}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

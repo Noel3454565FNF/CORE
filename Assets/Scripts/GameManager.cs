@@ -45,5 +45,6 @@ public class GameManager : MonoBehaviour
     public void COREROOMLights(float intensity)
     {
         CoreRoomLights1.intensity = intensity;
+        CoreRoomLights2.intensity = intensity;
     }
 }

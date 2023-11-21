@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using Mirror;
+using UnityEngine.UI;
 
 
 public class COREManager : MonoBehaviour
@@ -19,6 +20,7 @@ public class COREManager : MonoBehaviour
     public Color yellowStat;
     public Color greenStat;
     public Color offStat;
+    public ColorBlock initStat;
     public Light2D CORELight;
     public SpriteRenderer TV;
 
@@ -33,7 +35,6 @@ public class COREManager : MonoBehaviour
         COREStatut = "off";
         COREtemp = 100;
         CORELight.color = offStat;
-
     }
 
     // Update is called once per frame
@@ -43,25 +44,36 @@ public class COREManager : MonoBehaviour
     }
 
 
-    IEnumerator COREInit()
+    public void COREInit()
+    {
+        StartCoroutine(COREInite());
+        print("core Init");
+    }
+
+    IEnumerator COREInite()
     {
         yield return new WaitForSeconds(1f);
         GM.COREROOMLights(0.23f);
         CORELight.intensity = 1f;
+        print("core startup 1");
         yield return new WaitForSeconds(3f);
         if (GMN.COREStartFailureChance >= 0.6f)
         {
+            print("core failed startup");
             COREFailedStart = true;
             COREColor.color = redStat;
             TV.color = redStat;
+            COREColor.color = Color.yellow;
+            TV.color = Color.yellow;
         }
         else
         {
+            print("core success startup");
             COREFailedStart = false;
-            COREColor.color = greenStat;
-            TV.color = greenStat;
+            COREColor.color = Color.green;
+            TV.color =  Color.green;
         }
-        StopCoroutine(COREInit());
+        StopCoroutine(COREInite());
 
     }
 }

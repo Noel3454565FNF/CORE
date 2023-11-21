@@ -28,7 +28,6 @@ public class PLAYERManager : MonoBehaviour
         if (canMove == true)
         {
             DirectionX = Input.GetAxis("Horizontal");
-            print("moved");
         }
 
 
@@ -89,7 +88,6 @@ public class PLAYERManager : MonoBehaviour
         if (canMove == true)
         {
             rgb.velocity = new Vector2(DirectionX * 6f, rgb.velocity.y);
-            print("fixed");
         }
     }
 
