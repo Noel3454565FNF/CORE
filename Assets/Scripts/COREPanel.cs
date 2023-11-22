@@ -16,6 +16,13 @@ public class COREPanel : NetworkBehaviour
     public PLAYERManager PM;
     public COREManager CoreM;
     public GameManager GM;
+
+    public GameObject FULLCOREPanel;
+    public Button PL1Button;
+    public Button PL2Button;
+    public Button CL1Button;
+
+    public bool FULLCOREPanelAct;
     
 
     // Start is called before the first frame update
@@ -59,7 +66,7 @@ public class COREPanel : NetworkBehaviour
 
         if (CoreM.COREStatut == "normal")
         {
-
+            FULLCOREPanel.SetActive(true);
         }
     }
 
@@ -81,5 +88,11 @@ public class COREPanel : NetworkBehaviour
             StartupButton.colors = CoreM.initStat;
             StartupButtonText.text = "Initiating...";
         }
+    }
+
+
+    public void COREPanelInit()
+    {
+
     }
 }
