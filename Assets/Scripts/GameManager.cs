@@ -4,7 +4,7 @@ using UnityEngine;
 using Mirror;
 using UnityEngine.Rendering.Universal;
 
-public class GameManager : MonoBehaviour
+public class GameManager : NetworkBehaviour
 {
     public GameObject COREPanelThing;
     public PLAYERManager PM;
@@ -13,6 +13,11 @@ public class GameManager : MonoBehaviour
     //CORE things
     public Light2D CoreRoomLights1;
     public Light2D CoreRoomLights2;
+    public Light2D CoreRoomLights3;
+
+    public string FacilityPower = "gen";
+
+    public string TTS;
 
     // Start is called before the first frame update
     void Start()
@@ -44,7 +49,8 @@ public class GameManager : MonoBehaviour
 
     public void COREROOMLights(float intensity)
     {
-        CoreRoomLights1.intensity = intensity;
+/*        CoreRoomLights1.intensity = intensity;
         CoreRoomLights2.intensity = intensity;
+*/        CoreRoomLights3.intensity = intensity;
     }
 }

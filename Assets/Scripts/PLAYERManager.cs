@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Mirror;
 
 public class PLAYERManager : MonoBehaviour
 {
@@ -12,16 +13,26 @@ public class PLAYERManager : MonoBehaviour
     public bool canMove = true;
     public bool COREPanelState;
     public GameObject PanelCoreRoot;
+    
 
 
     // Start is called before the first frame update
     void Start()
     {
-        PanelCoreRoot = GameObject.Find("COREpanelThing");
-        PanelCoreRoot.SetActive(false);
         canMove = true;
+        if (PanelCoreRoot == null)
+        {
+            PanelCoreRoot = GameObject.Find("COREpanelThing");
+            if (PanelCoreRoot != null)
+            {
+                PanelCoreRoot.SetActive(false);
+
+            }
+
+        }
     }
 
+    
     // Update is called once per frame
     void Update()
     {

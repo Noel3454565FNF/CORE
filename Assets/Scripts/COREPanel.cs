@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.TextCore;
 using TMPro;
+using Mirror;
 
-public class COREPanel : MonoBehaviour
+public class COREPanel : NetworkBehaviour
 {
 
     public GameObject PanelRoot;
@@ -14,6 +15,8 @@ public class COREPanel : MonoBehaviour
     public Text StartupButtonText;
     public PLAYERManager PM;
     public COREManager CoreM;
+    public GameManager GM;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -49,8 +52,15 @@ public class COREPanel : MonoBehaviour
 
     public void activePanel()
     {
-        PanelRoot.active = true;
-        PM.canMove = false;
+        if (CoreM.COREStatut == "off")
+        {
+            PanelRoot.active = true;
+        }
+
+        if (CoreM.COREStatut == "normal")
+        {
+
+        }
     }
 
     public void disablePanel()
@@ -62,11 +72,14 @@ public class COREPanel : MonoBehaviour
         
     }
 
-
+    [Command(requiresAuthority = false)]
     public void InitCore()
     {
-        CoreM.COREInit();
-        StartupButton.colors = CoreM.initStat;
-        StartupButtonText.text = "Initiating...";
+        if (CoreM.COREStatut == "off")
+        {
+            CoreM.COREInit();
+            StartupButton.colors = CoreM.initStat;
+            StartupButtonText.text = "Initiating...";
+        }
     }
 }

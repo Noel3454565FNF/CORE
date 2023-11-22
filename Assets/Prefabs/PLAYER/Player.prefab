@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: -1149932982257943773}
   - component: {fileID: -7076325593644586808}
   - component: {fileID: 7721407617123903496}
-  - component: {fileID: 8872626298962144670}
   - component: {fileID: 6409741869820369538}
+  - component: {fileID: -6048487100745839032}
   m_Layer: 0
   m_Name: Player
   m_TagString: PLAYER
@@ -168,29 +168,6 @@ MonoBehaviour:
   serverOnly: 0
   visible: 2
   hasSpawned: 0
---- !u!114 &8872626298962144670
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3254897918636581806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab2cbc52526ea384ba280d13cd1a57b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  target: {fileID: -1149932982257943773}
-  clientAuthority: 0
-  syncVelocity: 1
-  clearVelocity: 0
-  velocitySensitivity: 0.1
-  syncAngularVelocity: 1
-  clearAngularVelocity: 0
-  angularVelocitySensitivity: 0.1
 --- !u!114 &6409741869820369538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,4 +185,37 @@ MonoBehaviour:
   PlayerSpeed: 6
   canMove: 0
   COREPanelState: 0
-  PanelRoot: {fileID: 0}
+  PanelCoreRoot: {fileID: 0}
+--- !u!114 &-6048487100745839032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3254897918636581806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a553cb17010b2403e8523b558bffbc14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0
+  target: {fileID: 8617868414919685878}
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 1
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  coordinateSpace: 0
+  sendIntervalMultiplier: 1
+  timelineOffset: 0
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  onlySyncOnChange: 1
+  bufferResetMultiplier: 3
+  positionSensitivity: 0.01
+  rotationSensitivity: 0.01
+  scaleSensitivity: 0.01
