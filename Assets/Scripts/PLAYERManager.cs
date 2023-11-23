@@ -13,7 +13,13 @@ public class PLAYERManager : MonoBehaviour
     public bool canMove = true;
     public bool COREPanelState;
     public GameObject PanelCoreRoot;
-    
+    public GameObject PanelCoreRootComplete;
+    public bool FullCorePanel = false;
+    public bool FullCorePanelState;
+
+    public GameObject COREPaneling;
+    COREManager COREM;
+
 
 
     // Start is called before the first frame update
@@ -30,12 +36,36 @@ public class PLAYERManager : MonoBehaviour
             }
 
         }
+        if (PanelCoreRootComplete == null)
+        {
+            PanelCoreRootComplete = GameObject.Find("COREpanelComplete");
+            if (PanelCoreRootComplete != null)
+            {
+                PanelCoreRootComplete.SetActive(false);
+            }
+        }
+        if (COREPaneling == null)
+        {
+            COREPaneling = GameObject.Find("COREPanel");
+            if (COREPaneling != null)
+            {
+                COREManager coreM = (COREManager)COREPaneling.GetComponent(typeof(COREManager));
+                COREM = coreM;
+            }
+        }
     }
 
     
     // Update is called once per frame
     void Update()
     {
+        if (COREM != null)
+        {
+            if (COREM.COREStatut == "normal")
+            {
+                FullCorePanel = true;
+            }
+        }
         if (canMove == true)
         {
             DirectionX = Input.GetAxis("Horizontal");
@@ -45,8 +75,21 @@ public class PLAYERManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.X) && COREPanelState == true)
         {
                 canMove = true;
+            if (COREPanelState == true)
+            {
                 COREPanelState = false;
                 PanelCoreRoot.SetActive(false);
+
+            }
+            if (FullCorePanelState == true)
+            {
+                FullCorePanelState = false;
+                PanelCoreRootComplete.SetActive(false);
+            }
+
+
+            //COREPanelState = false;
+            //FullCorePanelState = false;
         }
 
     }
@@ -57,11 +100,19 @@ public class PLAYERManager : MonoBehaviour
         
         if (collision.name == "COREPanel")
         {
-            COREPanelState = true;
-            
-            canMove = false;
-            rgb.velocity = Vector2.zero;
+            if (GameObject.Find("COREpanelThing"))
+            {
+                COREPanelState = true;
 
+                canMove = false;
+                rgb.velocity = Vector2.zero;
+            }
+            if (GameObject.Find("COREpanelComplete"))
+            {
+                FullCorePanelState = true;
+                canMove = false;
+                rgb.velocity = Vector2.zero;
+            }
             
         }
 
@@ -107,4 +158,32 @@ public class PLAYERManager : MonoBehaviour
         print("CORE STARTED");
         canMove = true;
     }
+
+
+
+    public void CALLFORF(string func)
+    {
+        if (func == "FULLCOREPANEL")
+        {
+            BroadcastMessage("FULLCOREPANEL");
+        }
+    }
+
+
+    public void FULLCOREPANEL()
+    {
+        FullCorePanel = true;
+    }
+}
+
+
+public class PLAYERNet : NetworkBehaviour
+{
+
+    public PLAYERManager PM;
+    public void FULLCOREPANEL()
+    {
+       PM.FullCorePanel = true;
+    }
+
 }

@@ -11,6 +11,7 @@ public class COREManager : NetworkBehaviour
     public GameManager GM;
     public GameManagerNet GMN;
     public COREPanel COREP;
+    public PLAYERManager PM;
     public SpriteRenderer COREColor;
 
     public Light2D CORELight;
@@ -132,9 +133,13 @@ public class COREManager : NetworkBehaviour
         COREStatut = "normal";
         COREP.StartupButton.gameObject.SetActive(false);
         COREP.StartupButtonText.gameObject.SetActive(false);
+        //COREP.activePanel();
 
 
 
 
     }
+
+
+    
 }
