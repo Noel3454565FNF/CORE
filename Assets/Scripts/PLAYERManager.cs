@@ -64,6 +64,7 @@ public class PLAYERManager : MonoBehaviour
             if (COREM.COREStatut == "normal")
             {
                 FullCorePanel = true;
+                print("lol");
             }
         }
         if (canMove == true)
@@ -72,7 +73,7 @@ public class PLAYERManager : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown(KeyCode.X) && COREPanelState == true)
+        if (Input.GetKeyDown(KeyCode.X))
         {
                 canMove = true;
             if (COREPanelState == true)
@@ -100,20 +101,7 @@ public class PLAYERManager : MonoBehaviour
         
         if (collision.name == "COREPanel")
         {
-            if (GameObject.Find("COREpanelThing"))
-            {
-                COREPanelState = true;
-
-                canMove = false;
-                rgb.velocity = Vector2.zero;
-            }
-            if (GameObject.Find("COREpanelComplete"))
-            {
-                FullCorePanelState = true;
-                canMove = false;
-                rgb.velocity = Vector2.zero;
-            }
-            
+            StartCoroutine(COREPanelLol());            
         }
 
     }
@@ -174,6 +162,30 @@ public class PLAYERManager : MonoBehaviour
     {
         FullCorePanel = true;
     }
+
+
+
+    IEnumerator COREPanelLol()
+    {
+        yield return new WaitForSeconds(0.1f);
+        if (GameObject.Find("COREpanelThing"))
+        {
+            COREPanelState = true;
+
+            canMove = false;
+            rgb.velocity = Vector2.zero;
+        }
+        if (GameObject.Find("COREpanelComplete"))
+        {
+            COREPanelState = true;
+
+            FullCorePanelState = true;
+            canMove = false;
+            rgb.velocity = Vector2.zero;
+        }
+
+    }
+
 }
 
 
@@ -185,5 +197,7 @@ public class PLAYERNet : NetworkBehaviour
     {
        PM.FullCorePanel = true;
     }
+
+
 
 }
