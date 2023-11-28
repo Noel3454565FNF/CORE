@@ -87,7 +87,8 @@ public class PLAYERManager : MonoBehaviour
                 FullCorePanelState = false;
                 PanelCoreRootComplete.SetActive(false);
             }
-
+            PanelCoreRoot.SetActive(false);
+            PanelCoreRootComplete.SetActive(false);
 
             //COREPanelState = false;
             //FullCorePanelState = false;
@@ -98,9 +99,11 @@ public class PLAYERManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        print(collision.name);
         
         if (collision.name == "COREPanel")
         {
+            print("llol1");
             StartCoroutine(COREPanelLol());            
         }
 
@@ -167,18 +170,19 @@ public class PLAYERManager : MonoBehaviour
 
     IEnumerator COREPanelLol()
     {
+        print("llol2");
         yield return new WaitForSeconds(0.1f);
         if (GameObject.Find("COREpanelThing"))
         {
             COREPanelState = true;
-
+            print("llol3");
             canMove = false;
             rgb.velocity = Vector2.zero;
         }
         if (GameObject.Find("COREpanelComplete"))
         {
             COREPanelState = true;
-
+            print("llol4");
             FullCorePanelState = true;
             canMove = false;
             rgb.velocity = Vector2.zero;
