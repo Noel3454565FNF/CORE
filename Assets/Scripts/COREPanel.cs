@@ -50,8 +50,9 @@ public class COREPanel : NetworkBehaviour
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "PLAYER")
+        if (collision.tag == "PLAYER" && isLocalPlayer)
         {
+            print("truex");
             activePanel();
         }
     }

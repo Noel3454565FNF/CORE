@@ -9,25 +9,18 @@ namespace Mirror.Examples.TanksCoop
     {
         Camera mainCam;
 
-        void Awake()
+        public override void OnStartClient()
         {
-            mainCam = Camera.main;
-        }
-
-        public override void OnStartLocalPlayer()
-        {
-            if (mainCam != null)
+            if (isLocalPlayer)
             {
-                // configure and make camera a child of player with 3rd person offset
-                mainCam.orthographic = false;
-                mainCam.transform.SetParent(transform);
-                mainCam.transform.localPosition = new Vector3(0f, 6f, -11f);
-                mainCam.transform.localEulerAngles = new Vector3(25f, 0f, 0f);
+                return;
             }
             else
-                Debug.LogWarning("PlayerCamera: Could not find a camera in scene with 'MainCamera' tag.");
+            {
+                // Disable camera, input scripts, colliders etc. here
+                GetComponent<Camera>().enabled = false;
+            }
         }
-
         public override void OnStopLocalPlayer()
         {
             if (mainCam != null)

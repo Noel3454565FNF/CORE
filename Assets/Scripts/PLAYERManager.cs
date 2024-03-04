@@ -20,7 +20,13 @@ public class PLAYERManager : MonoBehaviour
     public GameObject COREPaneling;
     COREManager COREM;
 
+    Camera mainCam;
 
+
+    void Awake()
+    {
+        mainCam = Camera.main;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -202,6 +208,10 @@ public class PLAYERNet : NetworkBehaviour
        PM.FullCorePanel = true;
     }
 
+    public override void OnStartLocalPlayer()
+    {
+        print("ll");
+        Camera.main.transform.SetParent(transform);
+    }
 
-
-}
+    }
