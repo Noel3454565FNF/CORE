@@ -12,13 +12,21 @@ public class PLAYERManager : MonoBehaviour
     public float PlayerSpeed;
     public bool canMove = true;
     public bool COREPanelState;
-    public GameObject PanelCoreRoot;
-    public GameObject PanelCoreRootComplete;
     public bool FullCorePanel = false;
     public bool FullCorePanelState;
+    public bool CorePanelInCollision = false;
 
+    public GameObject PanelCoreRoot;
+    public GameObject PanelCoreRootComplete;
     public GameObject COREPaneling;
+    public GameObject CORERoom;
+    public GameObject CORESB; //Core Startup Button GameObject
+    Button CSB; //Core Startup Button Button
+    COREPanel COREP;
     COREManager COREM;
+
+    GameManager GM;
+    GameObject GMO;
 
     Camera mainCam;
 
@@ -32,36 +40,29 @@ public class PLAYERManager : MonoBehaviour
     void Start()
     {
         canMove = true;
-        if (PanelCoreRoot == null)
-        {
-            PanelCoreRoot = GameObject.Find("COREpanelThing");
-            if (PanelCoreRoot != null)
-            {
-                PanelCoreRoot.SetActive(false);
 
+        if (GM == null)
+        {
+            GMO = GameObject.Find("GameManager");
+            if (GMO != null)
+            {
+                GameManager gmn = (GameManager)GMO.GetComponent(typeof(GameManager));
+                GM = gmn;
+                GM.CSB = CSB;
+                CSB.onClick.AddListener(CSBClick);
             }
 
-        }
-        if (PanelCoreRootComplete == null)
-        {
-            PanelCoreRootComplete = GameObject.Find("COREpanelComplete");
-            if (PanelCoreRootComplete != null)
-            {
-                PanelCoreRootComplete.SetActive(false);
-            }
-        }
-        if (COREPaneling == null)
-        {
-            COREPaneling = GameObject.Find("COREPanel");
-            if (COREPaneling != null)
-            {
-                COREManager coreM = (COREManager)COREPaneling.GetComponent(typeof(COREManager));
-                COREM = coreM;
-            }
         }
     }
+    private void CSBClick()
+    {
+        canMove = true;
+        COREPanelState = false;
+        PanelCoreRoot.SetActive(false);
+        CorePanelInCollision = false;
+    }
 
-    
+
     // Update is called once per frame
     void Update()
     {
@@ -70,13 +71,13 @@ public class PLAYERManager : MonoBehaviour
             if (COREM.COREStatut == "normal")
             {
                 FullCorePanel = true;
-                print("lol");
             }
         }
         if (canMove == true)
         {
             DirectionX = Input.GetAxis("Horizontal");
         }
+
 
 
         if (Input.GetKeyDown(KeyCode.X))
@@ -86,6 +87,7 @@ public class PLAYERManager : MonoBehaviour
             {
                 COREPanelState = false;
                 PanelCoreRoot.SetActive(false);
+                CorePanelInCollision = false;
 
             }
             if (FullCorePanelState == true)
@@ -110,12 +112,20 @@ public class PLAYERManager : MonoBehaviour
         if (collision.name == "COREPanel")
         {
             print("llol1");
-            StartCoroutine(COREPanelLol());            
+            CorePanelInCollision = true;
+            StartCoroutine(COREPanelLol());
         }
 
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.name == "COREPanel")
+        {
+            CorePanelInCollision = false;
+        }
 
+    }
 
     public void closePanel(GameObject panel)
     {
@@ -178,12 +188,13 @@ public class PLAYERManager : MonoBehaviour
     {
         print("llol2");
         yield return new WaitForSeconds(0.1f);
-        if (GameObject.Find("COREpanelThing"))
+        if (PanelCoreRoot != null && CorePanelInCollision == true)
         {
             COREPanelState = true;
             print("llol3");
             canMove = false;
             rgb.velocity = Vector2.zero;
+            COREP.activePanel();
         }
         if (GameObject.Find("COREpanelComplete"))
         {

@@ -38,6 +38,12 @@ public class GameManagerNet : NetworkBehaviour
     private void OnConnectedToServer()
     {
         COREStartFailureChance = Random.value >= 0.6f;
+        print("hey?");
+    }
+
+    new void OnStartServer()
+    {
+        print("hello?");
     }
 
 }

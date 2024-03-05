@@ -48,15 +48,15 @@ public class COREPanel : NetworkBehaviour
 */
 
     
-    private void OnTriggerEnter2D(Collider2D collision)
+/*    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "PLAYER" && isLocalPlayer)
+        if (collision.tag == "PLAYER")
         {
             print("truex");
             activePanel();
         }
     }
-
+*/
 
     public void activePanel()
     {
@@ -76,7 +76,6 @@ public class COREPanel : NetworkBehaviour
         PanelRoot.active = false;
         print("lol");
         PM.canMove = true;
-        InitCore();
         
     }
 
@@ -86,6 +85,7 @@ public class COREPanel : NetworkBehaviour
         if (CoreM.COREStatut == "off")
         {
             CoreM.COREInit();
+            disablePanel();
             StartupButton.colors = CoreM.initStat;
             StartupButtonText.text = "Initiating...";
         }

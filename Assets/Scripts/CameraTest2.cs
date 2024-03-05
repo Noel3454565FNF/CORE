@@ -9,7 +9,6 @@ public class CameraTest2 : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        print("lol");
         if (isLocalPlayer)
         {
             came.enabled = true;
