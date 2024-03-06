@@ -21,12 +21,14 @@ public class PLAYERManager : MonoBehaviour
     public GameObject COREPaneling;
     public GameObject CORERoom;
     public GameObject CORESB; //Core Startup Button GameObject
-    Button CSB; //Core Startup Button Button
-    COREPanel COREP;
-    COREManager COREM;
+    public Button CSB; //Core Startup Button Button
+    public COREPanel COREP;
+    public COREManager COREM;
 
-    GameManager GM;
-    GameObject GMO;
+    public GameManager GM;
+    public GameObject GMO;
+
+    public interfaceTEST IT;
 
     Camera mainCam;
 
@@ -39,6 +41,12 @@ public class PLAYERManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        StartCoroutine(PlayerInit());
+    }
+
+    IEnumerator PlayerInit()
+    {
+        yield return new WaitForSeconds(0.3f);
         canMove = true;
 
         if (GM == null)
@@ -48,12 +56,18 @@ public class PLAYERManager : MonoBehaviour
             {
                 GameManager gmn = (GameManager)GMO.GetComponent(typeof(GameManager));
                 GM = gmn;
-                GM.CSB = CSB;
+                CSB = GM.CSB;
                 CSB.onClick.AddListener(CSBClick);
+                COREM = GM.COREM;
+                COREP = GM.COREP;
+                PanelCoreRoot = GM.PanelCoreRoot;
+                PanelCoreRootComplete = GM.PanelCoreRootComplete;
+                COREPaneling = GM.COREPaneling;
             }
-
+            
         }
     }
+
     private void CSBClick()
     {
         canMove = true;
@@ -183,7 +197,6 @@ public class PLAYERManager : MonoBehaviour
     }
 
 
-
     IEnumerator COREPanelLol()
     {
         print("llol2");
@@ -194,7 +207,7 @@ public class PLAYERManager : MonoBehaviour
             print("llol3");
             canMove = false;
             rgb.velocity = Vector2.zero;
-            COREP.activePanel();
+            IT.activePanel();
         }
         if (GameObject.Find("COREpanelComplete"))
         {
@@ -207,22 +220,17 @@ public class PLAYERManager : MonoBehaviour
 
     }
 
+    public void activePanel()
+    {
+        if (COREM.COREStatut == "off")
+        {
+            PanelCoreRoot.active = true;
+        }
+
+        if (COREM.COREStatut == "normal")
+        {
+            PanelCoreRootComplete.SetActive(true);
+        }
+    }
+
 }
-
-
-public class PLAYERNet : NetworkBehaviour
-{
-
-    public PLAYERManager PM;
-    public void FULLCOREPANEL()
-    {
-       PM.FullCorePanel = true;
-    }
-
-    public override void OnStartLocalPlayer()
-    {
-        print("ll");
-        Camera.main.transform.SetParent(transform);
-    }
-
-    }

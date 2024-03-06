@@ -326,7 +326,6 @@ GameObject:
   - component: {fileID: 7261282692577667637}
   - component: {fileID: 1218724465312670712}
   - component: {fileID: 2771145506353815793}
-  - component: {fileID: 1501344173603218932}
   m_Layer: 5
   m_Name: panel
   m_TagString: Untagged
@@ -418,20 +417,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &1501344173603218932
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3886012423700177435}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 266fac335be17a243af86e88de84766d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainPanel: {fileID: 4614248961481189132}
-  playersPanel: {fileID: 4614248961481189132}
 --- !u!1 &4011386315251840866
 GameObject:
   m_ObjectHideFlags: 0

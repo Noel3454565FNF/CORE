@@ -38,29 +38,29 @@ public class COREPanel : NetworkBehaviour
     }
 
 
-/*    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.tag == "PLAYER")
+    /*    private void OnTriggerStay2D(Collider2D collision)
         {
-            activePanel();
+            if (collision.tag == "PLAYER")
+            {
+                activePanel();
+            }
         }
-    }
-*/
+    */
 
-    
-/*    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == "PLAYER")
+
+    /*    private void OnTriggerEnter2D(Collider2D collision)
         {
-            print("truex");
-            activePanel();
+            if (collision.tag == "PLAYER")
+            {
+                print("truex");
+                activePanel();
+            }
         }
-    }
-*/
-
+    */
+   
     public void activePanel()
     {
-        if (CoreM.COREStatut == "off")
+        if (CoreM.COREStatut == "off" && isLocalPlayer)
         {
             PanelRoot.active = true;
         }

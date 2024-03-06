@@ -5,6 +5,8 @@ using Mirror;
 
 public class interfaceTEST : NetworkBehaviour
 {
+    public PLAYERManager PM;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,4 +18,20 @@ public class interfaceTEST : NetworkBehaviour
     {
         
     }
+
+
+
+    public void activePanel()
+    {
+        if (PM.COREM.COREStatut == "off")
+        {
+            PM.PanelCoreRoot.active = true;
+        }
+
+        if (PM.COREM.COREStatut == "normal")
+        {
+            PM.PanelCoreRootComplete.SetActive(true);
+        }
+    }
+
 }

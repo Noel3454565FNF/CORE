@@ -36,55 +36,61 @@ public class GameManager : NetworkBehaviour
     {
         if (isServer)
         {
-            print("hey");
-            if (CORESB == null)
-            {
-                CORESB = GameObject.Find("COREStartupButton");
-                if (CORESB != null)
-                {
-                    Button corep = (Button)CORESB.GetComponent(typeof(Button));
-                    CSB = corep;
-                    CSB.onClick.AddListener(CSBClick);
-                }
-            }
-            if (PanelCoreRoot == null)
-            {
-                PanelCoreRoot = GameObject.Find("COREpanelThing");
-                if (PanelCoreRoot != null)
-                {
-                    PanelCoreRoot.SetActive(false);
+            StartCoroutine(serverInit());
+        }
+    }
 
-                }
+    IEnumerator serverInit()
+    {
+        yield return new WaitForSeconds(0.5f);
+        print("hey");
+        PanelCoreRoot.SetActive(false);
+        PanelCoreRootComplete.SetActive(false);
+        if (CORESB == null)
+        {
+            CORESB = GameObject.Find("COREStartupButton");
+            if (CORESB != null)
+            {
+                Button corep = (Button)CORESB.GetComponent(typeof(Button));
+                CSB = corep;
+            }
+        }
+        if (PanelCoreRoot == null)
+        {
+            PanelCoreRoot = GameObject.Find("COREpanelThing");
+            if (PanelCoreRoot != null)
+            {
 
-            }
-            if (PanelCoreRootComplete == null)
-            {
-                PanelCoreRootComplete = GameObject.Find("COREpanelComplete");
-                if (PanelCoreRootComplete != null)
-                {
-                    PanelCoreRootComplete.SetActive(false);
-                }
-            }
-            if (COREPaneling == null)
-            {
-                COREPaneling = GameObject.Find("COREPanel");
-                if (COREPaneling != null)
-                {
-                    COREPanel coreP = (COREPanel)COREPaneling.GetComponent(typeof(COREPanel));
-                    COREP = coreP;
-                }
-            }
-            if (CORERoom == null)
-            {
-                CORERoom = GameObject.Find("CORE room");
-                if (CORERoom != null)
-                {
-                    COREManager coreM = (COREManager)CORERoom.GetComponent(typeof(COREManager));
-                    COREM = coreM;
-                }
             }
 
         }
+        if (PanelCoreRootComplete == null)
+        {
+            PanelCoreRootComplete = GameObject.Find("COREpanelComplete");
+            if (PanelCoreRootComplete != null)
+            {
+            }
+        }
+        if (COREPaneling == null)
+        {
+            COREPaneling = GameObject.Find("COREPanel");
+            if (COREPaneling != null)
+            {
+                COREPanel coreP = (COREPanel)COREPaneling.GetComponent(typeof(COREPanel));
+                COREP = coreP;
+            }
+        }
+        if (CORERoom == null)
+        {
+            CORERoom = GameObject.Find("CORE room");
+            if (CORERoom != null)
+            {
+                COREManager coreM = (COREManager)CORERoom.GetComponent(typeof(COREManager));
+                COREM = coreM;
+            }
+        }
+
+
     }
 
     // Update is called once per frame
