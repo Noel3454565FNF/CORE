@@ -20,10 +20,10 @@ public class interfaceTEST : NetworkBehaviour
     }
 
 
-
+  
     public void activePanel()
     {
-        if (PM.COREM.COREStatut == "off")
+        if (PM.COREM.COREStatut == "off" && isLocalPlayer)
         {
             PM.PanelCoreRoot.active = true;
         }

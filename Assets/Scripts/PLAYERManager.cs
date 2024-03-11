@@ -32,6 +32,9 @@ public class PLAYERManager : MonoBehaviour
 
     Camera mainCam;
 
+// public NetworkConnectionToClient NCTC;
+
+
 
     void Awake()
     {

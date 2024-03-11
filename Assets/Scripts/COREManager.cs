@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using Mirror;
 using UnityEngine.UI;
+using TMPro;
 
 public class COREManager : NetworkBehaviour
 {
@@ -16,6 +17,7 @@ public class COREManager : NetworkBehaviour
 
     public Light2D CORELight;
     public SpriteRenderer TV;
+    public TextMeshPro TVText;
     public GameObject CORE;
 
     public GameObject PL1;
@@ -51,7 +53,7 @@ public class COREManager : NetworkBehaviour
     public string COREStatut;
     [SyncVar]
 
-    public int COREtemp;
+    public int CORETemp;
     public NetworkWriter lol;
 
 
@@ -63,7 +65,7 @@ public class COREManager : NetworkBehaviour
         TV.color = offStat;
         COREColor.color = offStat;
         COREStatut = "off";
-        COREtemp = 100;
+        CORETemp = 100;
         CORELight.color = offStat;
         
     }
@@ -71,17 +73,27 @@ public class COREManager : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
 
+    }
 
     [ClientRpc]
     public void COREInit()
     {
         StartCoroutine(COREInite());
-        print("core Init");
+/*        if(isServer == true)
+        {
+            COREInitSync();
+        }
+*/        print("core Init");
     }
 
+
+/*    [TargetRpc]
+    public void COREInitSync()
+    {
+        StartCoroutine(COREInite());
+    }
+*/
     IEnumerator COREInite()
     {
         COREStatut = "init";
@@ -134,12 +146,88 @@ public class COREManager : NetworkBehaviour
         COREP.StartupButton.gameObject.SetActive(false);
         COREP.StartupButtonText.gameObject.SetActive(false);
         //COREP.activePanel();
-
+        CORETemp = 1500;
+        TVText.text = CORETemp+"C°";
+        StartCoroutine(CORETempUpdate());
 
 
 
     }
 
 
-    
+    [Command]
+    public void CORETepUpdateCall()
+    {
+
+    }
+
+    IEnumerator CORETempUpdate()
+    {
+        yield return new WaitForSeconds(0.5f);
+        if (isServer == true)
+        {
+            int nextT = 1;
+            if (COREStatut == "normal")
+            {
+                if (PL1Power == "offline")
+                {
+                    nextT = nextT + 0;
+                }
+                if (PL1Power == "minimum")
+                {
+                    nextT = nextT + 3;
+                }
+                if (PL1Power == "medium")
+                {
+                    nextT = nextT + 5;
+                }
+                if (PL1Power == "maximum")
+                {
+                    nextT = nextT + 7;
+                }
+
+                if (PL2Power == "offline")
+                {
+                    nextT = nextT + 0;
+                }
+                if (PL2Power == "minimum")
+                {
+                    nextT = nextT + 3;
+                }
+                if (PL2Power == "medium")
+                {
+                    nextT = nextT + 5;
+                }
+                if (PL2Power == "maximum")
+                {
+                    nextT = nextT + 7;
+                }
+
+                if(CL1Power == "offline")
+                {
+                    nextT = nextT - 0;
+                }
+                if (CL1Power == "actif")
+                {
+                    nextT = nextT - 10;
+                }
+                CORETemp += nextT;
+                TVText.text = CORETemp + "C°";
+                CORETempUpdateClient();
+                print("nextT applied "+nextT+" and "+CORETemp+" core statut is "+COREStatut);
+                nextT = 0;
+                StartCoroutine(CORETempUpdate());
+
+            }
+
+        }
+
+    }
+
+    [ClientRpc]
+    public void CORETempUpdateClient()
+    {
+        TVText.text = CORETemp + "C°";
+    }
+
 }

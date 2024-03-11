@@ -11,6 +11,7 @@ public class GameManager : NetworkBehaviour
     public PLAYERManager PM;
     public NetworkManager NetMan;
 
+    public GameObject ServerCam;
 
     //CORE things
     public Light2D CoreRoomLights1;
@@ -37,6 +38,7 @@ public class GameManager : NetworkBehaviour
         if (isServer)
         {
             StartCoroutine(serverInit());
+            //ServerCam.active = true;
         }
     }
 
@@ -90,6 +92,13 @@ public class GameManager : NetworkBehaviour
             }
         }
 
+        afterServerInit();
+    }
+
+    public void afterServerInit()
+    {
+        PanelCoreRoot.SetActive(false);
+        PanelCoreRootComplete.SetActive(false);
 
     }
 

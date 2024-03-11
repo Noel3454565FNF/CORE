@@ -405,7 +405,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
   m_BackGroundColor: {r: 0.34901962, g: 0.34509805, b: 0.34509805, a: 1}
@@ -649,6 +649,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: panel
       objectReference: {fileID: 0}
+    - target: {fileID: 3886012423700177435, guid: 711a081ed305c6643ba7780b75ec11f2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5171551656876274082, guid: 711a081ed305c6643ba7780b75ec11f2, type: 3}
       propertyPath: m_Name
       value: COREStartupButton
@@ -733,14 +737,6 @@ PrefabInstance:
       propertyPath: GM
       value: 
       objectReference: {fileID: 1873418433}
-    - target: {fileID: 1518138044386100904, guid: b9bc5055f1cf5844cb96cb4caffbcdba, type: 3}
-      propertyPath: syncDirection
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2123482977334862169, guid: b9bc5055f1cf5844cb96cb4caffbcdba, type: 3}
-      propertyPath: syncDirection
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2645499406603696897, guid: b9bc5055f1cf5844cb96cb4caffbcdba, type: 3}
       propertyPath: m_Name
       value: CORE room
@@ -789,8 +785,8 @@ PrefabInstance:
       propertyPath: sceneId
       value: 2830209965
       objectReference: {fileID: 0}
-    - target: {fileID: 4781108094640453329, guid: b9bc5055f1cf5844cb96cb4caffbcdba, type: 3}
-      propertyPath: m_IsActive
+    - target: {fileID: 5476211902818609821, guid: b9bc5055f1cf5844cb96cb4caffbcdba, type: 3}
+      propertyPath: syncDirection
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7126769241825264483, guid: b9bc5055f1cf5844cb96cb4caffbcdba, type: 3}
@@ -828,7 +824,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7004243780443496006, guid: b9bc5055f1cf5844cb96cb4caffbcdba, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: b9bc5055f1cf5844cb96cb4caffbcdba, type: 3}
 --- !u!114 &1113179202 stripped
 MonoBehaviour:
@@ -971,6 +970,7 @@ MonoBehaviour:
   COREPanelThing: {fileID: 0}
   PM: {fileID: 6409741869820369538, guid: a31b2840897786f498d47c4cc371ae3a, type: 3}
   NetMan: {fileID: 0}
+  ServerCam: {fileID: 519420028}
   CoreRoomLights1: {fileID: 1113179203}
   CoreRoomLights2: {fileID: 1113179202}
   CoreRoomLights3: {fileID: 1905291013}
@@ -996,7 +996,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2b671c5eec7e5f49bca8af1ebaf610e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
+  syncDirection: 1
   syncMode: 0
   syncInterval: 0
   COREManager: {fileID: 0}
