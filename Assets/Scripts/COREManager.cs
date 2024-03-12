@@ -24,6 +24,11 @@ public class COREManager : NetworkBehaviour
     public GameObject PL2;
     public GameObject CL1;
 
+    public Slider PL1Slide;
+    public Slider PL2Slide;
+    public Slider CL1Slide;
+
+
     [SyncVar]
     public string CL1Power;
     [SyncVar]
@@ -67,6 +72,8 @@ public class COREManager : NetworkBehaviour
         COREStatut = "off";
         CORETemp = 100;
         CORELight.color = offStat;
+        PL1Slide.onValueChanged.AddListener(PL1SliderValueChanged);
+        PL2Slide.onValueChanged.AddListener(PL2SliderValueChanged);
         
     }
 
@@ -228,6 +235,42 @@ public class COREManager : NetworkBehaviour
     public void CORETempUpdateClient()
     {
         TVText.text = CORETemp + "C°";
+    }
+
+
+
+    public void PL1SliderValueChanged(float haha)
+    {
+        if (PL1Slide.value == 1)
+        {
+            PL1Power = "minimum";
+        }
+        if (PL1Slide.value == 2)
+        {
+            PL1Power = "medium";
+        }
+        if (PL1Slide.value == 3)
+        {
+            PL1Power = "maximum";
+        }
+        print(PL1Power);
+    }
+
+    public void PL2SliderValueChanged(float haha)
+    {
+        if (PL2Slide.value == 1)
+        {
+            PL2Power = "minimum";
+        }
+        if (PL2Slide.value == 2)
+        {
+            PL2Power = "medium";
+        }
+        if (PL2Slide.value == 3)
+        {
+            PL2Power = "maximum";
+        }
+        print(PL2Power);
     }
 
 }
