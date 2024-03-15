@@ -38,8 +38,29 @@ public class COREManager : NetworkBehaviour
     public Vector3[] PLPower;
     public Vector3[] CLPower;
 
+
+    private float tempCL1Var;
+    private float tempPL1Var;
+    private float tempPL2Var;
+    private float haha = 0;
+    private float hehe = 0;
+
     [SyncVar]
-    public bool COREFailedStart;
+    public bool COREFailedStart = false;
+    [SyncVar]
+    public bool COREUnstableSate = false;
+    [SyncVar]
+    public bool COREMeltdownEnter = false;
+    [SyncVar]
+    public bool COREMeltdown = false;
+
+    [SyncVar]
+    public bool COREInEvent;
+    [SyncVar]
+    public string COREEventName;
+    [SyncVar]
+    public int tempFactor = 1;
+
     [SyncVar]
     public Color redStat;
     [SyncVar]
@@ -74,7 +95,7 @@ public class COREManager : NetworkBehaviour
         CORELight.color = offStat;
         PL1Slide.onValueChanged.AddListener(PL1SliderValueChanged);
         PL2Slide.onValueChanged.AddListener(PL2SliderValueChanged);
-        
+        CL1Slide.onValueChanged.AddListener(CL1SliderValueChanged);        
     }
 
     // Update is called once per frame
@@ -173,7 +194,7 @@ public class COREManager : NetworkBehaviour
         yield return new WaitForSeconds(0.5f);
         if (isServer == true)
         {
-            int nextT = 1;
+            int nextT = tempFactor;
             if (COREStatut == "normal")
             {
                 if (PL1Power == "offline")
@@ -234,43 +255,158 @@ public class COREManager : NetworkBehaviour
     [ClientRpc]
     public void CORETempUpdateClient()
     {
-        TVText.text = CORETemp + "C°";
+            TVText.text = CORETemp + "C°";    
     }
 
 
-
-    public void PL1SliderValueChanged(float haha)
+    public void PL1SliderValueChanged(float hehe)
     {
-        if (PL1Slide.value == 1)
+        tempPL1Var = PL1Slide.value;
+        float haha = tempPL1Var;
+        if (haha == 1)
         {
             PL1Power = "minimum";
         }
-        if (PL1Slide.value == 2)
+        if (haha == 2)
         {
             PL1Power = "medium";
         }
-        if (PL1Slide.value == 3)
+        if (haha == 3)
         {
             PL1Power = "maximum";
+        }
+        PL1Slide.value = tempPL1Var;
+        if (isClient)
+        {
+            PL1SliderValueChangedToServer(tempPL1Var);
+        }
+        if (isServer)
+        {
+            PL1SliderValueChangedToClient(tempPL1Var);
         }
         print(PL1Power);
     }
 
-    public void PL2SliderValueChanged(float haha)
+    [Command(requiresAuthority = false)]
+    public void PL1SliderValueChangedToServer(float haha)
     {
-        if (PL2Slide.value == 1)
+        PL1Slide.value = haha;
+    }
+    [ClientRpc]
+    public void PL1SliderValueChangedToClient(float haha)
+    {
+        PL1Slide.value = haha;
+    }
+
+    public void PL2SliderValueChanged(float hehe)
+    {
+        tempPL2Var = PL2Slide.value;
+        float haha = tempPL2Var;
+        if (haha == 1)
         {
             PL2Power = "minimum";
         }
-        if (PL2Slide.value == 2)
+        if (haha == 2)
         {
             PL2Power = "medium";
         }
-        if (PL2Slide.value == 3)
+        if (haha == 3)
         {
             PL2Power = "maximum";
+        }
+        PL1Slide.value = tempPL2Var;
+        if (isClient == true)
+        {
+            PL2SliderValueChangedToServer(tempPL2Var);
+        }
+        if (isServer)
+        {
+            PL2SliderValueChangedToClient(tempPL2Var);
         }
         print(PL2Power);
     }
 
+    [Command(requiresAuthority = false)]
+    public void PL2SliderValueChangedToServer(float haha)
+    {
+        PL2Slide.value = haha;
+    }
+    [ClientRpc]
+    public void PL2SliderValueChangedToClient(float haha)
+    {
+        PL2Slide.value = haha;
+    }
+
+
+    public void CL1SliderValueChanged(float hehe)
+    {
+        tempCL1Var = CL1Slide.value;
+        float haha = tempCL1Var;
+        if (haha == 0)
+        {
+            CL1Power = "offline";
+        }
+        if (haha == 1)
+        {
+            CL1Power = "actif";
+        }
+        CL1Slide.value = tempCL1Var;
+        if (isClient)
+        {
+            CL1SliderValueChangedToServer(tempCL1Var);
+        }
+        if (isServer)
+        {
+            CL1SliderValueChangedToClient(tempCL1Var);
+        }
+        print(CL1Power);
+    }
+
+    [Command]
+    public void CL1SliderValueChangedToServer(float haha)
+    {
+        CL1Slide.value = haha;
+    }
+    [ClientRpc]
+    public void CL1SliderValueChangedToClient(float haha)
+    {
+        CL1Slide.value = haha;
+    }
+
+
+
+    //CORE Events
+    public void MainCoreEventChecker()
+    {
+        if (isServer)
+        {
+            if (CORETemp >= 3000 && COREUnstableSate!)
+            {
+                TV.color = Color.yellow;
+                tempFactor = 5;
+                COREEnterHighTempUnstableState();
+            }
+            if (CORETemp <= 2700 && COREUnstableSate)
+            {
+                TV.color = Color.green;
+                tempFactor = 1;
+                COREExitHighTempUnstableState();
+            }
+        }
+    }
+
+
+    //CORE Events for clients
+    [ClientRpc]
+    public void COREEnterHighTempUnstableState()
+    {
+        TV.color = Color.yellow;
+        tempFactor = 5;
+    }
+    [ClientRpc]
+    public void COREExitHighTempUnstableState()
+    {
+        TV.color = Color.green;
+        tempFactor = 1;
+    }
 }
