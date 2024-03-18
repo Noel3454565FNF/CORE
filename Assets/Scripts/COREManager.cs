@@ -39,20 +39,18 @@ public class COREManager : NetworkBehaviour
     public Vector3[] CLPower;
 
 
-    private float tempCL1Var;
-    private float tempPL1Var;
-    private float tempPL2Var;
-    private float haha = 0;
-    private float hehe = 0;
-
     [SyncVar]
     public bool COREFailedStart = false;
     [SyncVar]
-    public bool COREUnstableSate = false;
+    public bool COREUnstableState = false;
     [SyncVar]
     public bool COREMeltdownEnter = false;
     [SyncVar]
     public bool COREMeltdown = false;
+    [SyncVar]
+    public bool COREFreezedownEnter = false;
+    [SyncVar]
+    public bool COREFreezedown = false;
 
     [SyncVar]
     public bool COREInEvent;
@@ -95,7 +93,8 @@ public class COREManager : NetworkBehaviour
         CORELight.color = offStat;
         PL1Slide.onValueChanged.AddListener(PL1SliderValueChanged);
         PL2Slide.onValueChanged.AddListener(PL2SliderValueChanged);
-        CL1Slide.onValueChanged.AddListener(CL1SliderValueChanged);        
+        CL1Slide.onValueChanged.AddListener(CL1SliderValueChanged);     
+
     }
 
     // Update is called once per frame
@@ -203,11 +202,11 @@ public class COREManager : NetworkBehaviour
                 }
                 if (PL1Power == "minimum")
                 {
-                    nextT = nextT + 3;
+                    nextT = nextT + 1;
                 }
                 if (PL1Power == "medium")
                 {
-                    nextT = nextT + 5;
+                    nextT = nextT + 4;
                 }
                 if (PL1Power == "maximum")
                 {
@@ -220,11 +219,11 @@ public class COREManager : NetworkBehaviour
                 }
                 if (PL2Power == "minimum")
                 {
-                    nextT = nextT + 3;
+                    nextT = nextT + 1;
                 }
                 if (PL2Power == "medium")
                 {
-                    nextT = nextT + 5;
+                    nextT = nextT + 4;
                 }
                 if (PL2Power == "maximum")
                 {
@@ -241,7 +240,8 @@ public class COREManager : NetworkBehaviour
                 }
                 CORETemp += nextT;
                 TVText.text = CORETemp + "C°";
-                CORETempUpdateClient();
+                CORETempUpdateClient(nextT);
+                MainCoreEventChecker();
                 print("nextT applied "+nextT+" and "+CORETemp+" core statut is "+COREStatut);
                 nextT = 0;
                 StartCoroutine(CORETempUpdate());
@@ -253,16 +253,18 @@ public class COREManager : NetworkBehaviour
     }
 
     [ClientRpc]
-    public void CORETempUpdateClient()
+    public void CORETempUpdateClient(int tempNexT)
     {
-            TVText.text = CORETemp + "C°";    
+        TVText.text = CORETemp + "C°";
+        print(tempNexT);
     }
 
 
-    public void PL1SliderValueChanged(float hehe)
+
+    public void PL1SliderValueChanged(float haha)
     {
-        tempPL1Var = PL1Slide.value;
-        float haha = tempPL1Var;
+        PL1Slide.value = haha;
+        //float haha = tempPL1Var;
         if (haha == 1)
         {
             PL1Power = "minimum";
@@ -275,14 +277,13 @@ public class COREManager : NetworkBehaviour
         {
             PL1Power = "maximum";
         }
-        PL1Slide.value = tempPL1Var;
-        if (isClient)
+        if (isClient == true)
         {
-            PL1SliderValueChangedToServer(tempPL1Var);
+            PL1SliderValueChangedToServer(haha);
         }
         if (isServer)
         {
-            PL1SliderValueChangedToClient(tempPL1Var);
+            PL1SliderValueChangedToClient(haha);
         }
         print(PL1Power);
     }
@@ -298,10 +299,9 @@ public class COREManager : NetworkBehaviour
         PL1Slide.value = haha;
     }
 
-    public void PL2SliderValueChanged(float hehe)
+    public void PL2SliderValueChanged(float haha)
     {
-        tempPL2Var = PL2Slide.value;
-        float haha = tempPL2Var;
+        PL2Slide.value = haha;
         if (haha == 1)
         {
             PL2Power = "minimum";
@@ -314,14 +314,14 @@ public class COREManager : NetworkBehaviour
         {
             PL2Power = "maximum";
         }
-        PL1Slide.value = tempPL2Var;
+
         if (isClient == true)
         {
-            PL2SliderValueChangedToServer(tempPL2Var);
+            PL2SliderValueChangedToServer(haha);
         }
         if (isServer)
         {
-            PL2SliderValueChangedToClient(tempPL2Var);
+            PL2SliderValueChangedToClient(haha);
         }
         print(PL2Power);
     }
@@ -338,10 +338,9 @@ public class COREManager : NetworkBehaviour
     }
 
 
-    public void CL1SliderValueChanged(float hehe)
+    public void CL1SliderValueChanged(float haha)
     {
-        tempCL1Var = CL1Slide.value;
-        float haha = tempCL1Var;
+        CL1Slide.value = haha;
         if (haha == 0)
         {
             CL1Power = "offline";
@@ -350,19 +349,18 @@ public class COREManager : NetworkBehaviour
         {
             CL1Power = "actif";
         }
-        CL1Slide.value = tempCL1Var;
-        if (isClient)
+        if (isClient == true)
         {
-            CL1SliderValueChangedToServer(tempCL1Var);
+            CL1SliderValueChangedToServer(haha);
         }
         if (isServer)
         {
-            CL1SliderValueChangedToClient(tempCL1Var);
+            CL1SliderValueChangedToClient(haha);
         }
         print(CL1Power);
     }
 
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CL1SliderValueChangedToServer(float haha)
     {
         CL1Slide.value = haha;
@@ -380,33 +378,77 @@ public class COREManager : NetworkBehaviour
     {
         if (isServer)
         {
-            if (CORETemp >= 3000 && COREUnstableSate!)
+            if (CORETemp >= 3000 && COREUnstableState == false)
             {
+                COREUnstableState = true;
                 TV.color = Color.yellow;
                 tempFactor = 5;
                 COREEnterHighTempUnstableState();
+                print("core is now unstable");
             }
-            if (CORETemp <= 2700 && COREUnstableSate)
+            if (CORETemp <= 2700 && COREUnstableState == true)
             {
+                COREUnstableState = false;
                 TV.color = Color.green;
                 tempFactor = 1;
                 COREExitHighTempUnstableState();
+                print("not anymore");
+            }
+
+
+            if (CORETemp <= 300 && COREUnstableState == false)
+            {
+                COREUnstableState = true;
+                TV.color = Color.yellow;
+                tempFactor = -5;
+                COREEnterLowTempUnstableState();
+            }
+            if (CORETemp >= 700 && COREUnstableState == true)
+            {
+                COREUnstableState = false;
+                TV.color = Color.green;
+                tempFactor = 1;
+                COREExitLowTempUnstableState();
             }
         }
     }
+
+/*    IEnumerator MainCoreEventCheckerCooldown()
+    {
+        yield return new WaitForSeconds(0.1f);
+        MainCoreEventChecker();
+    }
+*/
 
 
     //CORE Events for clients
     [ClientRpc]
     public void COREEnterHighTempUnstableState()
     {
+        COREUnstableState = true;
         TV.color = Color.yellow;
-        tempFactor = 5;
+        tempFactor += 4;
     }
     [ClientRpc]
     public void COREExitHighTempUnstableState()
     {
+        COREUnstableState = false;
         TV.color = Color.green;
-        tempFactor = 1;
+        tempFactor += -4;
+    }
+    
+    [ClientRpc]
+    public void COREEnterLowTempUnstableState()
+    {
+        COREUnstableState = true;
+        TV.color = Color.yellow;
+        tempFactor += -4;
+    }
+    [ClientRpc]
+    public void COREExitLowTempUnstableState()
+    {
+        COREUnstableState = false;
+        TV.color = Color.green;
+        tempFactor += 4;
     }
 }
