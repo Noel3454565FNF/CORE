@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,8 +36,13 @@
             margin-bottom: 20px;
         }
 
+        .reminder {
+            margin-bottom: 20px;
+        }
+
         .note {
             color: #777;
+            margin-top: 10px;
         }
 
         .link {
@@ -48,12 +53,31 @@
         .link a {
             color: #007bff;
             text-decoration: none;
+            transition: color 0.3s ease;
         }
 
         .link a:hover {
-            text-decoration: underline;
+            color: #0056b3;
         }
 
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .button-container button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button-container button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -69,8 +93,22 @@
         </section>
 
         <div class="link">
-            <a href="another_page.html">Go to Another Page</a>
+            <a href="Main.html">Main Documentation</a>
         </div>
+
+        <div class="button-container">
+            <button onclick="sendRequest()">Click Me</button>
+        </div>
+        
+        <p>THIS IS A BETA WEBSITE, DO NOT EXPECT EVERYTHING TO BE WORKING! (like the button above haha...)</p>
     </div>
+
+    <script>
+        function sendRequest() {
+            fetch('/button_clicked', {
+                method: 'POST'
+            });
+        }
+    </script>
 </body>
 </html>
