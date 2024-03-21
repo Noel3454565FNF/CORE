@@ -1,19 +1,20 @@
 from flask import Flask, request, Response, render_template, send_file
+from email.message import EmailMessage
+import smtplib
 
 app = Flask(__name__)
 
 # Define path to the text file containing valid credentials
 VALID_CREDENTIALS_FILE = 'valid_credentials.txt'
-ulb_phase_2 = "ULB2_Lyrics.txt"
 ULB2_lyrics = 'static/blocked_audio.mp3'
 
-
-NOELCONNECTED = "Custom message for Noel with correct credentials"
-ASASCONNECTIONDENIED = "Custom message for curl with wrong credentials"
-
+Access = "nul"
 tempU = "a"
 tempP = "b"
 idk = "c"
+recipient = "noel345@outlook.fr"
+message = "Hello world!"
+
 
 # Function to read valid credentials from the text file
 def read_valid_credentials():
@@ -30,14 +31,13 @@ def is_web_browser_request():
 @app.route('/blocked')
 def BLOCKEDONCEAGAIN():
     if is_web_browser_request():
-            return render_template('ULB2.html')
-def audio_ULB2():
-    return send_file(ULB2_lyrics)
-
+        return render_template('ULB2.html')
+    else:
+        return "Blocked access."
 
 @app.route('/', methods=['GET'])
 def index():
-    global tempU, tempP
+    global tempU, tempP, Access
     auth = request.authorization
     if not auth or [auth.username, auth.password] not in VALID_CREDENTIALS:
         return authenticate()
@@ -50,11 +50,17 @@ def authenticate():
     return Response('Could not verify your credentials.', 401, {'WWW-Authenticate': 'Basic realm="Login Required"'})
 
 def WEBchoose():
+    global Access
     if tempU == "noel":
         return "Welcome, Site Director, You are now connected to the ASAS Mainframe Remotely!"
     elif tempU == "LMER":
+        Access = "Security+"
         return render_template('LMER.html')
+    elif tempU == "Jack Nyras":
+        Access = "Security+"
+        return render_template('employe.html')
     elif tempU != '':
+        Access = "employee"
         return render_template('employe.html')
     else:
         return "Unknown user. Please log in with valid credentials."
@@ -72,13 +78,65 @@ def test_page():
         tempP = auth.password
         return WEBchoose()
 
+@app.route('/favicon.ico')
+def favI():
+    return send_file("favicon.ico")
+
+@app.route('/apple-touch-icon.png')
+def apple_touch_icon():
+    return send_file("apple-touch-icon.png")
+
+@app.route('/Unstable Reactor State.html')
+def URS():
+    global Access, tempU
+    if Access == "Security+" or Access == "Director" or Access == "SpatialBaseSecurity" or Access == "ASES" or tempU == "jack Nyras":
+        return render_template('Unstable Reactor State.html')
+    elif Access == "employee":
+        return render_template('ULB2.html')
+
 @app.route('/button_clicked', methods=['POST'])
 def heh():
-    return render_template('MAIN.html')
+    return render_template('ULB2.html')
 
 @app.route('/Main.html')
 def tsk():
     return render_template('MAIN.html')
+
+
+
+
+
+
+
+
+def ASASEMAIL():
+    global recipient, message
+    sender = "ASAS-external-relay@outlook.fr"
+
+    email = EmailMessage()
+    email["From"] = sender
+    email["To"] = recipient
+    email["Subject"] = "Test Email"
+    email.set_content(message)
+
+    smtp = smtplib.SMTP("smtp-mail.outlook.com", port=587)
+    smtp.starttls()
+    smtp.login(sender, "AIRplane78380")
+    smtp.sendmail(sender, recipient, email.as_string())
+    smtp.quit()
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

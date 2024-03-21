@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Classified Document</title>
+    <link rel="icon" type="image/png" href="favicon.ico">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,12 +20,12 @@
             padding: 20px;
         }
 
-        .header {
+        header, footer {
             text-align: center;
             margin-bottom: 20px;
         }
 
-        .header h1 {
+        header h1, footer p {
             font-size: 28px;
             color: #333;
             margin-bottom: 10px;
@@ -37,40 +38,66 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
+        .content ul {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            padding-left: 20px;
+        }
+
+        .content ul li {
+            margin-bottom: 5px;
+        }
+
         .note {
             color: #777;
             margin-top: 20px;
+        }
+
+        footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header class="header">
+        <header>
             <h1>Classified Document</h1>
         </header>
 
         <div class="content">
             <p>Hi, this document is classified. You need to have at least one of the following:</p>
             <ul>
-                <li>DIRECT-ACCESS from:</li>
-                <ul>
-                    <li>Innovation HQ DIRECTOR</li>
-                    <li>Innovation HQ SECURITY ADVISOR</li>
-                    <li>Innovation Biohazard Response Department</li>
-                    <li>SOLARIS DIRECTOR</li>
-                    <li>CURRENT Facility Director</li>
-                    <li>FACILITY ADMINISTRATION team</li>
-                    <li>ASES</li>
-                </ul>
-                <li>ACCESS-LEVEL:</li>
-                <ul>
-                    <li>SECURITY-LEVEL-9</li>
-                    <li>ADMINISTRATION-LEVEL-9</li>
-                    <li>COMPUTER-CORE-MANAGER+</li>
-                </ul>
+                <li><strong>DIRECT-ACCESS from:</strong>
+                    <ul>
+                        <li>Innovation HQ DIRECTOR</li>
+                        <li>Innovation HQ SECURITY ADVISOR</li>
+                        <li>Innovation Biohazard Response Department</li>
+                        <li>SOLARIS DIRECTOR</li>
+                        <li>CURRENT Facility Director</li>
+                        <li>FACILITY ADMINISTRATION team</li>
+                        <li>ASES</li>
+                    </ul>
+                </li>
+                <li><strong>ACCESS-LEVEL:</strong>
+                    <ul>
+                        <li>SECURITY-LEVEL-9</li>
+                        <li>ADMINISTRATION-LEVEL-9</li>
+                        <li>COMPUTER-CORE-MANAGER+</li>
+                    </ul>
+                </li>
             </ul>
             <p class="note">UNAUTHORIZED ACCESS WILL RESULT IN EMPLOYMENT TERMINATION.</p>
         </div>
+
+        <footer>
+            <p><strong>REACTOR EVENT</strong></p>
+            <a href="Unstable Reactor State.html">Unstable Reactor State</a>
+        </footer>
     </div>
 </body>
 </html>
