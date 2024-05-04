@@ -24,10 +24,15 @@ public class COREManager : NetworkBehaviour
     public GameObject PL2;
     public GameObject CL1;
 
+    public Text PL1Text;
+    public Text PL2Text;
+    public Text CL1Text;
+
     public Slider PL1Slide;
     public Slider PL2Slide;
     public Slider CL1Slide;
 
+    public GameObject sf1;
 
     [SyncVar]
     public string CL1Power;
@@ -53,7 +58,7 @@ public class COREManager : NetworkBehaviour
     public bool COREFreezedown = false;
 
     [SyncVar]
-    public bool COREInEvent;
+    public bool COREInEvent = false;
     [SyncVar]
     public string COREEventName;
     [SyncVar]
@@ -196,7 +201,7 @@ public class COREManager : NetworkBehaviour
             int nextT = tempFactor;
             if (COREStatut == "normal")
             {
-                if (PL1Power == "offline")
+                if (PL1Power == "offline" || PL1Power == "ERROR")
                 {
                     nextT = nextT + 0;
                 }
@@ -213,7 +218,7 @@ public class COREManager : NetworkBehaviour
                     nextT = nextT + 7;
                 }
 
-                if (PL2Power == "offline")
+                if (PL2Power == "offline" || PL2Power == "ERROR")
                 {
                     nextT = nextT + 0;
                 }
@@ -230,7 +235,7 @@ public class COREManager : NetworkBehaviour
                     nextT = nextT + 7;
                 }
 
-                if(CL1Power == "offline")
+                if(CL1Power == "offline" || CL1Power == "ERROR")
                 {
                     nextT = nextT - 0;
                 }
@@ -265,23 +270,23 @@ public class COREManager : NetworkBehaviour
     {
         PL1Slide.value = haha;
         //float haha = tempPL1Var;
-        if (haha == 1)
+        if (haha == 1 && PL1Power != "ERROR")
         {
             PL1Power = "minimum";
         }
-        if (haha == 2)
+        if (haha == 2 && PL1Power != "ERROR")
         {
             PL1Power = "medium";
         }
-        if (haha == 3)
+        if (haha == 3 && PL1Power != "ERROR")
         {
             PL1Power = "maximum";
         }
-        if (isClient == true)
+        if (isClient == true && PL1Power != "ERROR")
         {
             PL1SliderValueChangedToServer(haha);
         }
-        if (isServer)
+        if (isServer && PL1Power != "ERROR")
         {
             PL1SliderValueChangedToClient(haha);
         }
@@ -302,24 +307,24 @@ public class COREManager : NetworkBehaviour
     public void PL2SliderValueChanged(float haha)
     {
         PL2Slide.value = haha;
-        if (haha == 1)
+        if (haha == 1 && PL2Power != "ERROR")
         {
             PL2Power = "minimum";
         }
-        if (haha == 2)
+        if (haha == 2 && PL2Power != "ERROR")
         {
             PL2Power = "medium";
         }
-        if (haha == 3)
+        if (haha == 3 && PL2Power != "ERROR")
         {
             PL2Power = "maximum";
         }
 
-        if (isClient == true)
+        if (isClient == true && PL2Power != "ERROR")
         {
             PL2SliderValueChangedToServer(haha);
         }
-        if (isServer)
+        if (isServer && PL2Power != "ERROR")
         {
             PL2SliderValueChangedToClient(haha);
         }
@@ -341,19 +346,19 @@ public class COREManager : NetworkBehaviour
     public void CL1SliderValueChanged(float haha)
     {
         CL1Slide.value = haha;
-        if (haha == 0)
+        if (haha == 0 && CL1Power != "ERROR")
         {
             CL1Power = "offline";
         }
-        if (haha == 1)
+        if (haha == 1 && CL1Power != "ERROR")
         {
             CL1Power = "actif";
         }
-        if (isClient == true)
+        if (isClient == true && CL1Power != "ERROR")
         {
             CL1SliderValueChangedToServer(haha);
         }
-        if (isServer)
+        if (isServer && CL1Power != "ERROR")
         {
             CL1SliderValueChangedToClient(haha);
         }
@@ -378,7 +383,7 @@ public class COREManager : NetworkBehaviour
     {
         if (isServer)
         {
-            if (CORETemp >= 3000 && COREUnstableState == false)
+            if (CORETemp >= 3000 && COREUnstableState == false && COREInEvent == false)
             {
                 COREUnstableState = true;
                 TV.color = Color.yellow;
@@ -386,7 +391,7 @@ public class COREManager : NetworkBehaviour
                 COREEnterHighTempUnstableState();
                 print("core is now unstable");
             }
-            if (CORETemp <= 2700 && COREUnstableState == true)
+            if (CORETemp <= 2700 && COREUnstableState == true && COREInEvent == false)
             {
                 COREUnstableState = false;
                 TV.color = Color.green;
@@ -396,29 +401,53 @@ public class COREManager : NetworkBehaviour
             }
 
 
-            if (CORETemp <= 300 && COREUnstableState == false)
+            if (CORETemp <= 300 && COREUnstableState == false && COREInEvent == false)
             {
                 COREUnstableState = true;
                 TV.color = Color.yellow;
                 tempFactor = -5;
                 COREEnterLowTempUnstableState();
             }
-            if (CORETemp >= 700 && COREUnstableState == true)
+            if (CORETemp >= 700 && COREUnstableState == true && COREInEvent == false)
             {
                 COREUnstableState = false;
                 TV.color = Color.green;
                 tempFactor = 1;
                 COREExitLowTempUnstableState();
             }
+            if (CORETemp <= -100 && COREUnstableState == true && COREInEvent == false)
+            {
+                COREEnterFreezeDown();
+                StartCoroutine(COREFreezeDownEnterCour());
+            }
         }
     }
 
-/*    IEnumerator MainCoreEventCheckerCooldown()
+    IEnumerator COREFreezeDownEnterCour()
     {
-        yield return new WaitForSeconds(0.1f);
-        MainCoreEventChecker();
+        COREInEvent = true;
+        COREEventName = "FreezeDown";
+        tempFactor = -19;
+        COREColor.gameObject.LeanColor(Color.cyan, 10f);
+        CL1Text.text = "ERROR: Unresponsive!";
+        CL1Power = "ERROR";
+        yield return new WaitForSeconds(7f);
+        PL1Text.text = "ERROR: NO POWER!";
+        PL2Text.text = "ERROR: NO POWER!";
+        PL1Power = "ERROR";
+        PL2Power = "ERROR";
+        PL1.LeanScale(PLPower[0], 5f);
+        PL2.LeanScale(PLPower[0], 5f);
+        yield return new WaitForSeconds(10f);
+        GameObject.Instantiate(sf1);
+
     }
-*/
+    /*    IEnumerator MainCoreEventCheckerCooldown()
+        {
+            yield return new WaitForSeconds(0.1f);
+            MainCoreEventChecker();
+        }
+    */
 
 
     //CORE Events for clients
@@ -442,13 +471,19 @@ public class COREManager : NetworkBehaviour
     {
         COREUnstableState = true;
         TV.color = Color.yellow;
-        tempFactor += -4;
+        tempFactor = -5;
     }
     [ClientRpc]
     public void COREExitLowTempUnstableState()
     {
         COREUnstableState = false;
         TV.color = Color.green;
-        tempFactor += 4;
+        tempFactor = 1;
+    }
+
+    [ClientRpc]
+    public void COREEnterFreezeDown()
+    {
+        StartCoroutine(COREFreezeDownEnterCour());
     }
 }
