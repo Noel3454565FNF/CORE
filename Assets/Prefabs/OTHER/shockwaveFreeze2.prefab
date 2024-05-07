@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7325148649267906237}
   - component: {fileID: -2975070370009217801}
   m_Layer: 0
-  m_Name: shockwaveFreeze1
+  m_Name: shockwaveFreeze2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,9 +98,10 @@ Animation:
   m_GameObject: {fileID: 1554133815803968025}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 2eec1160da3378f4199ce4a77b1e8928, type: 2}
+  m_Animation: {fileID: 7400000, guid: 1421239044a05e6479bb9fbf9ea8ac3c, type: 2}
   m_Animations:
   - {fileID: 7400000, guid: 2eec1160da3378f4199ce4a77b1e8928, type: 2}
+  - {fileID: 7400000, guid: 1421239044a05e6479bb9fbf9ea8ac3c, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0

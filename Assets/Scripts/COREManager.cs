@@ -33,6 +33,7 @@ public class COREManager : NetworkBehaviour
     public Slider CL1Slide;
 
     public GameObject sf1;
+    public GameObject sf2;
 
     [SyncVar]
     public string CL1Power;
@@ -56,6 +57,8 @@ public class COREManager : NetworkBehaviour
     public bool COREFreezedownEnter = false;
     [SyncVar]
     public bool COREFreezedown = false;
+    [SyncVar]
+    public bool COREBlackHole = false;
 
     [SyncVar]
     public bool COREInEvent = false;
@@ -106,6 +109,15 @@ public class COREManager : NetworkBehaviour
     void Update()
     {
 
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            tempFactor = -100;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            GameObject.Instantiate(sf2);
+        }
     }
 
     [ClientRpc]
@@ -432,6 +444,7 @@ public class COREManager : NetworkBehaviour
         CL1Text.text = "ERROR: Unresponsive!";
         CL1Power = "ERROR";
         yield return new WaitForSeconds(7f);
+        tempFactor += -22;
         PL1Text.text = "ERROR: NO POWER!";
         PL2Text.text = "ERROR: NO POWER!";
         PL1Power = "ERROR";
@@ -440,6 +453,13 @@ public class COREManager : NetworkBehaviour
         PL2.LeanScale(PLPower[0], 5f);
         yield return new WaitForSeconds(10f);
         GameObject.Instantiate(sf1);
+        COREBlackHole = true;
+        yield return new WaitForSeconds(5f);
+        COREColor.gameObject.LeanColor(Color.blue, 10f);
+        yield return new WaitForSeconds(6f);
+        COREColor.gameObject.LeanColor(Color.black, 10f);
+        GameObject.Instantiate(sf2);
+
 
     }
     /*    IEnumerator MainCoreEventCheckerCooldown()
