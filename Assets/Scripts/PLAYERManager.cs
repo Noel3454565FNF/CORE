@@ -15,6 +15,7 @@ public class PLAYERManager : MonoBehaviour
     public bool FullCorePanel = false;
     public bool FullCorePanelState;
     public bool CorePanelInCollision = false;
+    public bool Attracted = false;
 
     public GameObject PanelCoreRoot;
     public GameObject PanelCoreRootComplete;
@@ -24,6 +25,8 @@ public class PLAYERManager : MonoBehaviour
     public Button CSB; //Core Startup Button Button
     public COREPanel COREP;
     public COREManager COREM;
+    public GameObject CORE;
+    public float gravityFactor = 1f;
 
     public GameManager GM;
     public GameObject GMO;
@@ -35,6 +38,10 @@ public class PLAYERManager : MonoBehaviour
 // public NetworkConnectionToClient NCTC;
 
 
+    public void AttractionToBH()
+    {
+        Attracted = true;
+    }
 
     void Awake()
     {
@@ -50,7 +57,6 @@ public class PLAYERManager : MonoBehaviour
     IEnumerator PlayerInit()
     {
         yield return new WaitForSeconds(0.3f);
-        canMove = true;
 
         if (GM == null)
         {
@@ -66,8 +72,10 @@ public class PLAYERManager : MonoBehaviour
                 PanelCoreRoot = GM.PanelCoreRoot;
                 PanelCoreRootComplete = GM.PanelCoreRootComplete;
                 COREPaneling = GM.COREPaneling;
+                CORE = GM.CORE;
+                canMove = true;
             }
-            
+
         }
     }
 
@@ -175,6 +183,12 @@ public class PLAYERManager : MonoBehaviour
         {
             rgb.velocity = new Vector2(DirectionX * 6f, rgb.velocity.y);
         }
+
+        if (Attracted == true)
+        {
+            rgb.AddForce((CORE.transform.position - transform.position).normalized * rgb.mass * gravityFactor / (CORE.transform.position - transform.position).sqrMagnitude);
+        }
+
     }
 
     public void receivedAction(string message)
@@ -235,5 +249,7 @@ public class PLAYERManager : MonoBehaviour
             PanelCoreRootComplete.SetActive(true);
         }
     }
+
+
 
 }

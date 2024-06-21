@@ -30,6 +30,7 @@ public class GameManager : NetworkBehaviour
     public Button CSB; //Core Startup Button Button
     public COREPanel COREP;
     public COREManager COREM;
+    public GameObject CORE;
 
 
     // Start is called before the first frame update
