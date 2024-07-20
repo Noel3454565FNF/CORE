@@ -193,6 +193,7 @@ MonoBehaviour:
   FullCorePanel: 0
   FullCorePanelState: 0
   CorePanelInCollision: 0
+  Attracted: 0
   PanelCoreRoot: {fileID: 0}
   PanelCoreRootComplete: {fileID: 0}
   COREPaneling: {fileID: 0}
@@ -206,6 +207,9 @@ MonoBehaviour:
   GM: {fileID: 0}
   GMO: {fileID: 0}
   IT: {fileID: 605844836847390415}
+  tempC: {fileID: 4459197551933863612}
+  FAG: {fileID: 0}
+  FA: {fileID: 0}
 --- !u!114 &-6048487100745839032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,6 +293,7 @@ MonoBehaviour:
   Attracted: 0
   gravityFactor: 10000
   setup: 0
+  mode: 0
 --- !u!114 &4647135279915709807
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,6 +11,11 @@ public class GameManager : NetworkBehaviour
     public PLAYERManager PM;
     public NetworkManager NetMan;
 
+
+    public Image FAbg;
+    public Text FAtxt;
+
+
     public GameObject ServerCam;
 
     //CORE things
@@ -132,4 +137,8 @@ public class GameManager : NetworkBehaviour
 */        CoreRoomLights3.intensity = intensity;
     }
     
+
+
+
+
 }

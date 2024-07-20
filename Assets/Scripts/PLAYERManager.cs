@@ -34,6 +34,9 @@ public class PLAYERManager : MonoBehaviour
     public interfaceTEST IT;
 
     Camera mainCam;
+    public Camera tempC;
+    public GameObject FAG;
+    public Famanager FA;
 
 // public NetworkConnectionToClient NCTC;
 
@@ -75,7 +78,19 @@ public class PLAYERManager : MonoBehaviour
                 CORE = GM.CORE;
                 canMove = true;
             }
-
+            
+        }
+        yield return new WaitForSeconds(1f);
+        FAG = GameObject.Find("Facilityannouncementobject");
+        if (FAG != null)
+        {
+            Famanager fa = (Famanager)FAG.GetComponent(typeof(Famanager));
+            FA = fa;
+            FA.cam = tempC;
+        }
+        else
+        {
+            print("ERROR!");
         }
     }
 

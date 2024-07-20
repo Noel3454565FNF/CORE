@@ -14,6 +14,8 @@ public class COREManager : NetworkBehaviour
     public COREPanel COREP;
     public PLAYERManager PM;
     public SpriteRenderer COREColor;
+    public ScreenFlash screenFlash;
+    public StabVars stabVars;
 
     public Light2D CORELight;
     public SpriteRenderer TV;
@@ -44,6 +46,8 @@ public class COREManager : NetworkBehaviour
     public Vector3[] PLPower;
     public Vector3[] CLPower;
 
+        
+    
 
     [SyncVar]
     public bool COREFailedStart = false;
@@ -184,6 +188,8 @@ public class COREManager : NetworkBehaviour
         CL1Power = "actif";
         CL1.transform.localScale = CLPower[1];
         yield return new WaitForSeconds(0.5f);
+        stabVars.initSTABS();
+        screenFlash.startupflash();
         GM.COREROOMLights(1f);
         TV.color = Color.green;
         COREStatut = "normal";
