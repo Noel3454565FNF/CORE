@@ -10,11 +10,13 @@ public class Famanager : NetworkBehaviour
     public Image Fabg;
     public Text Fatxt;
 
+    public GameObject FABG;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        FABG.SetActive(false);   
     }
 
     // Update is called once per frame
@@ -29,6 +31,7 @@ public class Famanager : NetworkBehaviour
         if (isServer)
         {
             FAMangerClient(text);
+            FABG.SetActive(true);
             Fabg.color = new Color(255, 255, 255, 79);
             Fatxt.text = text;
             StartCoroutine(FAServerVanish());
@@ -45,12 +48,14 @@ public class Famanager : NetworkBehaviour
         yield return new WaitForSeconds(10f);
         Fabg.color = new Color(255, 255, 255, 0);
         Fatxt.text = "";
+        FABG.SetActive(false);
     }
 
 
     [ClientRpc]
     public void FAMangerClient(string text)
     {
+        FABG.SetActive(true);
         Fabg.color = new Color(255, 255, 255, 79);
         Fatxt.text = text;
         StartCoroutine(FAServerVanish());

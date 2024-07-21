@@ -10,16 +10,19 @@ public class ScreenFlash : NetworkBehaviour
 
     public AnimationClip wfStartup; //
 
+    public GameObject flash;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        flash.SetActive(false);
 
     }
 
     public void startupflash()
     {
-        
+        flash.SetActive(true);
+
         whiteflash.clip = wfStartup;
         whiteflash.Play();
     }

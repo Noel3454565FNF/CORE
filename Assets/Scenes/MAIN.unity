@@ -225,7 +225,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.32210872, w: 0.9467028}
   m_LocalPosition: {x: -5.2347, y: 4.3879, z: 0}
-  m_LocalScale: {x: 0.9, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 932919966}
@@ -408,6 +408,7 @@ MonoBehaviour:
   cam: {fileID: 0}
   Fabg: {fileID: 328685357}
   Fatxt: {fileID: 1902756607}
+  FABG: {fileID: 328685354}
 --- !u!1 &205759559
 GameObject:
   m_ObjectHideFlags: 0
@@ -1151,7 +1152,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!81 &519420029
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1677,6 +1678,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5f5001eff8b17d41a17a341a17e79f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  Stab1:
+  - {x: -5.2347, y: 4.3879, z: 0}
+  - {x: -3, y: 5.5974, z: 0}
+  Stab2:
+  - {x: 5.2347, y: 4.3879, z: 0}
+  - {x: 3, y: 5.5974, z: 0}
+  Stab3:
+  - {x: -5.7695, y: 12.9851, z: 0}
+  - {x: -3.35, y: 11.09, z: 0}
+  Stab4:
+  - {x: 5.7695, y: 12.9851, z: 0}
+  - {x: 3.35, y: 11.09, z: 0}
+  STABSPW12:
+  - {x: 1, y: 1, z: 1}
+  - {x: 6, y: 1, z: 1}
+  STABSPW34:
+  - {x: 1, y: 1, z: 1}
+  - {x: 6, y: 1, z: 1}
+  STABSGM:
+  - {fileID: 0}
+  - {fileID: 38669298}
+  - {fileID: 455827243}
+  - {fileID: 1710172379}
+  - {fileID: 1600813743}
 --- !u!114 &1059538257 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7105621971681662306, guid: 711a081ed305c6643ba7780b75ec11f2, type: 3}
@@ -1712,6 +1740,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 442822806084807014, guid: b9bc5055f1cf5844cb96cb4caffbcdba, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 518839463769861232, guid: b9bc5055f1cf5844cb96cb4caffbcdba, type: 3}
       propertyPath: m_LightType
       value: 1
@@ -2472,6 +2504,7 @@ MonoBehaviour:
   syncInterval: 0
   whiteflash: {fileID: 1242879451}
   wfStartup: {fileID: 7400000, guid: 698fd7980ffd4b54e92f734e94862c9a, type: 2}
+  flash: {fileID: 1242879443}
 --- !u!1 &1600813743
 GameObject:
   m_ObjectHideFlags: 0
@@ -3142,8 +3175,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.006550014, y: 4.5944157, z: 0}
-    m_Extent: {x: 0.50655, y: 5.0951157, z: 0}
+    m_Center: {x: -0.006334156, y: 4.59485, z: 0}
+    m_Extent: {x: 0.5063342, y: 5.09495, z: 0}
   m_PointLightInnerAngle: 149.42766
   m_PointLightOuterAngle: 149.42766
   m_PointLightInnerRadius: 6.4180627

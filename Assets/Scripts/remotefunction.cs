@@ -87,5 +87,22 @@ public class remotefunction : NetworkBehaviour
         {
             FA.FAMangerFunc(sa);
         }
+        else if (name == "WARHEAD")
+        {
+            //Warhead event;
+        }
+        else if (name == "FORCEDWARHEAD")
+        {
+            //Warhead event but shutdown will fail;
+        }
+        else if (name == "MELTDOWN")
+        {
+            //CORE Meltdown;
+        }
+        else if (name == "BIOHAZARDPROTOCOL")
+        {
+            //BIOHAZARD CONTAINMENT AND SD; 
+        }
+
     }
 }
