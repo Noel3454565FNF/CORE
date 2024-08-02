@@ -43,4 +43,29 @@ public class StabVars : NetworkBehaviour
         STABSGM[4].transform.position = Stab4[1];
         STABSGM[4].transform.localScale = STABSPW34[1];
     }
+
+
+    public void shutdownSTABScaller()
+    {
+        StartCoroutine(shutdownSTABS());
+    }
+    IEnumerator shutdownSTABS()
+    {
+        yield return new WaitForSeconds(1f);
+        STABSGM[1].transform.position = Stab1[0];
+        STABSGM[1].transform.localScale = STABSPW12[0];
+
+        yield return new WaitForSeconds(1f);
+        STABSGM[2].transform.position = Stab2[0];
+        STABSGM[2].transform.localScale = STABSPW12[0];
+        yield return new WaitForSeconds(1f);
+
+        STABSGM[3].transform.position = Stab3[0];
+        STABSGM[3].transform.localScale = STABSPW34[0];
+        yield return new WaitForSeconds(1f);
+
+        STABSGM[4].transform.position = Stab4[0];
+        STABSGM[4].transform.localScale = STABSPW34[0];
+
+    }
 }

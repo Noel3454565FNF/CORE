@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
+using UnityEngine.SceneManagement;
 
 public class PLAYERManager : MonoBehaviour
 {
@@ -119,8 +120,13 @@ public class PLAYERManager : MonoBehaviour
         }
 
 
+        if (Input.GetKeyDown(KeyCode.Z) && CorePanelInCollision == true)
+        {
+            StartCoroutine(COREPanelLol());
+            print("he he hey");
+        }
 
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.X) && CorePanelInCollision == true)
         {
                 canMove = true;
             if (COREPanelState == true)
@@ -153,7 +159,11 @@ public class PLAYERManager : MonoBehaviour
         {
             print("llol1");
             CorePanelInCollision = true;
-            StartCoroutine(COREPanelLol());
+        }
+
+        if (collision.name == "CORE" && Attracted == true)
+        {
+            SceneManager.LoadScene(sceneName: "InsideTheBH");
         }
 
     }

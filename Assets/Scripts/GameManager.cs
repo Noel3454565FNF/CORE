@@ -25,8 +25,6 @@ public class GameManager : NetworkBehaviour
 
     public string FacilityPower = "gen";
 
-    public string TTS;
-
     public GameObject PanelCoreRoot;
     public GameObject PanelCoreRootComplete;
     public GameObject COREPaneling;
@@ -36,6 +34,10 @@ public class GameManager : NetworkBehaviour
     public COREPanel COREP;
     public COREManager COREM;
     public GameObject CORE;
+
+
+    public string FacilityStatus = "Green";
+    public bool Evacorder = false;
 
 
     // Start is called before the first frame update
