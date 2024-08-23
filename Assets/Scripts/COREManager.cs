@@ -91,6 +91,9 @@ public class COREManager : NetworkBehaviour
     public string COREStatut;
     [SyncVar]
 
+    public bool COREExpansion = false;
+    [SyncVar]
+
     public int CORETemp;
     public NetworkWriter lol;
 
@@ -539,17 +542,53 @@ public class COREManager : NetworkBehaviour
             PL1Text.text = "ERROR: NO POWER!";
             PL2Text.text = "ERROR: NO POWER!";
             //aM.AudioPlayer("Freezedown3");
+            print("ATTENTION! EVACUATION ORDER NOW IN EFFECT FOR ALL THE PERSONEL REMAINING IN THE FACILITY!");
+            GM.Evacorder = true;
+            GM.CanEvacuate = true;
             yield return new WaitForSeconds(40f);
             //aM.AudioPlayer("Freezedown4");
+            print("EXTREM BIOHAZARD WARNING! DETECTING UNKNOWN CORE BEHAVIOUR! FULL FACILITY LOCKDOWN IN EFFECT!");
+            GM.FacilityEmergencyProtocol("FULLLOCKDOWN");
             yield return new WaitForSeconds(20f);
             GameObject.Instantiate(sf1); //BlackHole Wave1
             COREBlackHole = true;
             //aM.AudioPlayer("Freezedown5");
+            print("ATTEMPTING TO PREDICT CORE CATASTROPHIC EVENT...");
+            print("MAINFRAME CORRUPTION DETECTED-");
+            print("WARNING! CORE WILL EXPAND CRITICALLY IN [Undetermined time], EVECUATE IMMEDIATLY!");
             yield return new WaitForSeconds(5f);
             COREColor.gameObject.LeanColor(Color.blue, 10f);
             yield return new WaitForSeconds(15f);
             COREColor.gameObject.LeanColor(Color.black, 10f);
             GameObject.Instantiate(sf2); //BlackHole Wave2
+            //aM.AudioPlayer("Freezedown6");
+            print("30 SECONDS LEFT BEFORE EXTREM CORE EXPANSION!");
+            yield return new WaitForSeconds(10f);
+            //aM.AudioPlayer("Freezedown7");
+            print("20 SECONDS LEFT BEFORE EXTREM CORE EXPANSION!");
+            yield return new WaitForSeconds(10f);
+            //aM.AudioPlayer("Freezedown8");
+            print("10 SECONDS LEFT BEFORE EXTREM CORE EXPANSION!");
+            yield return new WaitForSeconds(5f);
+            //aM.AudioPlayer("Freezedown9");
+            print("5");
+            yield return new WaitForSeconds(1f);
+            //aM.AudioPlayer("Freezedown10");
+            print("4");
+            yield return new WaitForSeconds(1f);
+            //aM.AudioPlayer("Freezedown11");
+            print("3");
+            yield return new WaitForSeconds(1f);
+            //aM.AudioPlayer("Freezedown12");
+            print("2");
+            yield return new WaitForSeconds(1f);
+            //aM.AudioPlayer("Freezedown13");
+            print("1");
+            yield return new WaitForSeconds(1f);
+            print("Goodbye");
+            //aM.AudioPlayer("Freezedown14"); //goodbye
+            CORE.transform.LeanScale(new Vector3(999f, 999f), 100f);
+
 
         }
 

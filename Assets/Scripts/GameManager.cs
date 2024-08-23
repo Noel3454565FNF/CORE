@@ -38,6 +38,8 @@ public class GameManager : NetworkBehaviour
 
     public string FacilityStatus = "Green";
     public bool Evacorder = false;
+    public bool CanEvacuate = false;
+
 
 
     // Start is called before the first frame update
@@ -141,6 +143,21 @@ public class GameManager : NetworkBehaviour
     
 
 
+
+
+
+    public void FacilityEmergencyProtocol(string protocol)
+    {
+
+        if (protocol == "FULLLOCKDOWN")
+        {
+            FacilityStatus = "Purple";
+            CanEvacuate = false;
+            //all blastdoors and lockdown doors will close
+            //along with lockdown protocol will engage
+        }
+
+    }
 
 
 }

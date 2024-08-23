@@ -166,6 +166,11 @@ public class PLAYERManager : MonoBehaviour
             SceneManager.LoadScene(sceneName: "InsideTheBH");
         }
 
+        if (collision.name == "CORE" && Attracted == false && COREM.COREExpansion == true)
+        {
+            SceneManager.LoadScene(sceneName: "BHending");
+        }
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
