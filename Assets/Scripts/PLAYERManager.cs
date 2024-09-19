@@ -271,7 +271,7 @@ public class PLAYERManager : MonoBehaviour
     {
         if (COREM.COREStatut == "off")
         {
-            PanelCoreRoot.active = true;
+            PanelCoreRoot.SetActive(false);
         }
 
         if (COREM.COREStatut == "normal")

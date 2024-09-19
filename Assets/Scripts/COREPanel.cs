@@ -62,7 +62,7 @@ public class COREPanel : NetworkBehaviour
     {
         if (CoreM.COREStatut == "off" && isLocalPlayer)
         {
-            PanelRoot.active = true;
+            PanelRoot.SetActive(true);
         }
 
         if (CoreM.COREStatut == "normal")
@@ -73,7 +73,7 @@ public class COREPanel : NetworkBehaviour
 
     public void disablePanel()
     {
-        PanelRoot.active = false;
+        PanelRoot.SetActive(false);
         print("lol");
         PM.canMove = true;
         
