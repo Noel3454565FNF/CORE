@@ -101,7 +101,11 @@ public class remotefunction : NetworkBehaviour
         }
         else if (name == "BIOHAZARDPROTOCOL")
         {
-            //BIOHAZARD CONTAINMENT AND SD; 
+            //FULL FACILITY LOCKDOWN AND SD;
+        }
+        else if (name == "FULLFACILITYLOCKDOWN")
+        {
+            //FULL FACILITY LOCKDOWN;
         }
 
     }

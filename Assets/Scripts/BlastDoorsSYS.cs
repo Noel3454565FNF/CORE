@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BlastDoorsSYS : MonoBehaviour
@@ -9,12 +10,13 @@ public class BlastDoorsSYS : MonoBehaviour
     public GameObject[] COREBD;
     public GameManager GM;
 
-    public Action[] L;
+    public Array[] ma;
+
     // Start is called before the first frame update
     void Start()
     {
         GM = gameObject.GetComponent<GameManager>();
-        
+        ma.AddRange(COREBD);
     }
 
     // Update is called once per frame
