@@ -14,6 +14,9 @@ public class COREManager : NetworkBehaviour
     public COREPanel COREP;
     public PLAYERManager PM;
     public SpriteRenderer COREColor;
+    public ScreenFlash screenFlash;
+    public StabVars stabVars;
+    public AudioManager aM;
 
     public Light2D CORELight;
     public SpriteRenderer TV;
@@ -44,6 +47,9 @@ public class COREManager : NetworkBehaviour
     public Vector3[] PLPower;
     public Vector3[] CLPower;
 
+
+
+    
 
     [SyncVar]
     public bool COREFailedStart = false;
@@ -83,6 +89,9 @@ public class COREManager : NetworkBehaviour
     [SyncVar]
 
     public string COREStatut;
+    [SyncVar]
+
+    public bool COREExpansion = false;
     [SyncVar]
 
     public int CORETemp;
@@ -184,6 +193,8 @@ public class COREManager : NetworkBehaviour
         CL1Power = "actif";
         CL1.transform.localScale = CLPower[1];
         yield return new WaitForSeconds(0.5f);
+        stabVars.initSTABS();
+        screenFlash.startupflash();
         GM.COREROOMLights(1f);
         TV.color = Color.green;
         COREStatut = "normal";
@@ -435,33 +446,6 @@ public class COREManager : NetworkBehaviour
         }
     }
 
-    IEnumerator COREFreezeDownEnterCour()
-    {
-        COREInEvent = true;
-        COREEventName = "FreezeDown";
-        tempFactor = -19;
-        COREColor.gameObject.LeanColor(Color.cyan, 10f);
-        CL1Text.text = "ERROR: Unresponsive!";
-        CL1Power = "ERROR";
-        yield return new WaitForSeconds(7f);
-        tempFactor += -22;
-        PL1Text.text = "ERROR: NO POWER!";
-        PL2Text.text = "ERROR: NO POWER!";
-        PL1Power = "ERROR";
-        PL2Power = "ERROR";
-        PL1.LeanScale(PLPower[0], 5f);
-        PL2.LeanScale(PLPower[0], 5f);
-        yield return new WaitForSeconds(10f);
-        GameObject.Instantiate(sf1);
-        COREBlackHole = true;
-        yield return new WaitForSeconds(5f);
-        COREColor.gameObject.LeanColor(Color.blue, 10f);
-        yield return new WaitForSeconds(6f);
-        COREColor.gameObject.LeanColor(Color.black, 10f);
-        GameObject.Instantiate(sf2);
-
-
-    }
     /*    IEnumerator MainCoreEventCheckerCooldown()
         {
             yield return new WaitForSeconds(0.1f);
@@ -506,4 +490,110 @@ public class COREManager : NetworkBehaviour
     {
         StartCoroutine(COREFreezeDownEnterCour());
     }
+
+
+
+    IEnumerator COREFreezeDownEnterCour() //FREEZEDOWN
+    {
+        bool freezephase1shutdown = false;
+        COREInEvent = true;
+        GM.FacilityStatus = "Yellow";
+        COREEventName = "FreezeDown";
+        aM.AudioPlayer("EnterFreezedown");
+        TV.color = Color.yellow;
+        PL1Power = "ERROR";
+        PL2Power = "ERROR";
+        CL1Power = "ERROR";
+        CL1Text.text = "!OVERRIDE!";
+        PL1Text.text = "!OVERRIDE!";
+        PL2Text.text = "!OVERRIDE!";
+        yield return new WaitForSeconds(15f);
+        //checking if it will shutdown.
+        //also pre-shutdown phase
+        COREP.StartupButtonText.text = "Shuting down Power Laser 1...";
+        yield return new WaitForSeconds(1.5f);
+        PL1.transform.localScale = PLPower[0];
+        COREP.StartupButtonText.text = "Shuting down Power Laser 2...";
+        yield return new WaitForSeconds(1.5f);
+        PL2.transform.localScale = PLPower[0];
+        COREP.StartupButtonText.text = "Shutding down Cooling Laser 1...";
+        yield return new WaitForSeconds(2f);
+        CL1.transform.localScale = CLPower[0];
+        yield return new WaitForSeconds(0.5f);
+        if (freezephase1shutdown)
+        {
+            //shutdownevent;
+            stabVars.shutdownSTABScaller();
+            print("shutdown success!");
+            //aM.AudioPLayer("FreezeShutdown");
+        }
+        else
+        {
+            aM.AudioPlayer("Freezedown2");
+            yield return new WaitForSeconds(30f);
+            GM.FacilityStatus = "Red";
+            GM.Evacorder = true;
+            tempFactor = -19;
+            tempFactor += -22;
+            COREColor.gameObject.LeanColor(Color.cyan, 10f);
+            PL1.LeanScale(PLPower[0], 5f);
+            PL2.LeanScale(PLPower[0], 5f);
+            CL1Text.text = "ERROR: Unresponsive!";
+            PL1Text.text = "ERROR: NO POWER!";
+            PL2Text.text = "ERROR: NO POWER!";
+            //aM.AudioPlayer("Freezedown3");
+            print("ATTENTION! EVACUATION ORDER NOW IN EFFECT FOR ALL THE PERSONEL REMAINING IN THE FACILITY!");
+            GM.Evacorder = true;
+            GM.CanEvacuate = true;
+            yield return new WaitForSeconds(40f);
+            //aM.AudioPlayer("Freezedown4");
+            print("EXTREM BIOHAZARD WARNING! DETECTING UNKNOWN CORE BEHAVIOUR! FULL FACILITY LOCKDOWN IN EFFECT!");
+            GM.FacilityEmergencyProtocol("FULLLOCKDOWN");
+            yield return new WaitForSeconds(20f);
+            GameObject.Instantiate(sf1); //BlackHole Wave1
+            COREBlackHole = true;
+            //aM.AudioPlayer("Freezedown5");
+            print("ATTEMPTING TO PREDICT CORE CATASTROPHIC EVENT...");
+            print("MAINFRAME CORRUPTION DETECTED-");
+            print("WARNING! CORE WILL EXPAND CRITICALLY IN [Undetermined time], EVECUATE IMMEDIATLY!");
+            yield return new WaitForSeconds(5f);
+            COREColor.gameObject.LeanColor(Color.blue, 10f);
+            yield return new WaitForSeconds(15f);
+            COREColor.gameObject.LeanColor(Color.black, 10f);
+            GameObject.Instantiate(sf2); //BlackHole Wave2
+            //aM.AudioPlayer("Freezedown6");
+            print("30 SECONDS LEFT BEFORE EXTREM CORE EXPANSION!");
+            yield return new WaitForSeconds(10f);
+            //aM.AudioPlayer("Freezedown7");
+            print("20 SECONDS LEFT BEFORE EXTREM CORE EXPANSION!");
+            yield return new WaitForSeconds(10f);
+            //aM.AudioPlayer("Freezedown8");
+            print("10 SECONDS LEFT BEFORE EXTREM CORE EXPANSION!");
+            yield return new WaitForSeconds(5f);
+            //aM.AudioPlayer("Freezedown9");
+            print("5");
+            yield return new WaitForSeconds(1f);
+            //aM.AudioPlayer("Freezedown10");
+            print("4");
+            yield return new WaitForSeconds(1f);
+            //aM.AudioPlayer("Freezedown11");
+            print("3");
+            yield return new WaitForSeconds(1f);
+            //aM.AudioPlayer("Freezedown12");
+            print("2");
+            yield return new WaitForSeconds(1f);
+            //aM.AudioPlayer("Freezedown13");
+            print("1");
+            yield return new WaitForSeconds(1f);
+            print("Goodbye");
+            //aM.AudioPlayer("Freezedown14"); //goodbye
+            CORE.transform.LeanScale(new Vector3(999f, 999f), 100f);
+
+
+        }
+
+
+
+    }
+
 }

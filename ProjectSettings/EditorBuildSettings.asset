@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MAIN.unity
     guid: 07d871fa2cc2bce41bcff470ca0cac1e
+  - enabled: 1
+    path: Assets/Scenes/InsideTheBH.unity
+    guid: 14c8ae8c084c19b4eb86a0cbc66a1e10
+  - enabled: 1
+    path: Assets/Scenes/BHending.unity
+    guid: fd3659b330820f84c92e3bf21a01c37e
   m_configObjects: {}

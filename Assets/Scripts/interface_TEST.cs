@@ -25,7 +25,7 @@ public class interfaceTEST : NetworkBehaviour
     {
         if (PM.COREM.COREStatut == "off" && isLocalPlayer)
         {
-            PM.PanelCoreRoot.active = true;
+            PM.PanelCoreRoot.SetActive(true);
         }
 
         if (PM.COREM.COREStatut == "normal" && isLocalPlayer)

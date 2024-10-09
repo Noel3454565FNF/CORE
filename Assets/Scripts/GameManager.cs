@@ -11,6 +11,11 @@ public class GameManager : NetworkBehaviour
     public PLAYERManager PM;
     public NetworkManager NetMan;
 
+
+    public Image FAbg;
+    public Text FAtxt;
+
+
     public GameObject ServerCam;
 
     //CORE things
@@ -19,8 +24,6 @@ public class GameManager : NetworkBehaviour
     public Light2D CoreRoomLights3;
 
     public string FacilityPower = "gen";
-
-    public string TTS;
 
     public GameObject PanelCoreRoot;
     public GameObject PanelCoreRootComplete;
@@ -31,6 +34,15 @@ public class GameManager : NetworkBehaviour
     public COREPanel COREP;
     public COREManager COREM;
     public GameObject CORE;
+
+
+    public string FacilityStatus = "Green";
+    public bool Evacorder = false;
+    public bool CanEvacuate = false;
+
+
+    public uint[] BlastDoorsWholeID;
+    public BlastDoorsSYS BDSYS;
 
 
     // Start is called before the first frame update
@@ -132,4 +144,52 @@ public class GameManager : NetworkBehaviour
 */        CoreRoomLights3.intensity = intensity;
     }
     
+
+
+
+    public uint BlastDoorIDReturnerforregistry()
+    {
+        uint L;
+        int O;
+        O = Random.Range(1, 999999999);
+        L = (uint)O;
+        foreach (uint i in BlastDoorsWholeID)
+        {
+            if (i != L)
+            {
+                //nothing to say.
+            }
+            if (i == L)
+            {
+                O = Random.Range(1, 999999999);
+                L = (uint)O;
+                //change id again? (lets hope it work lmao :pray:
+                //W coder ever :sob::pray::fire::kys:
+            }
+        }
+        return L;
+    }
+
+
+
+    public void FacilityEmergencyProtocol(string protocol)
+    {
+
+        if (protocol == "FULLLOCKDOWN")
+        {
+            FacilityStatus = "Purple";
+            CanEvacuate = false;
+            //all blastdoors and lockdown doors will close
+            //along with lockdown protocol will engage
+        }
+        if (protocol == "OVERRIDELOCKDOWN")
+        {
+            FacilityStatus = "LOCKDOWN";
+            CanEvacuate = true;
+            
+        }
+
+    }
+
+
 }
